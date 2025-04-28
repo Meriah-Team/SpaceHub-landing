@@ -7,4 +7,4 @@ Route::get('/template', function () {
     return view('welcome');
 });
 
-Route::get('/', [LandingController::class, 'index']);
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
