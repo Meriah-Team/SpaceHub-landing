@@ -24,7 +24,7 @@
             <div class="flex flex-row justify-between items-center">
                 <h2 class="font-bold text-lg lg:text-4xl text-[var(--color-spacehub-dark)]">Temukan Kafe dan Workspace</h2>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-end mb-8">
                 {{-- Search --}}
                 <form action="{{ route('landing.explore') }}" method="GET">
                     <input 
