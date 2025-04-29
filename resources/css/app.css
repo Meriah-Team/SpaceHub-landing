@@ -28,3 +28,29 @@ html,body {
     --color-spacehub-light: #594DA6;
     --color-neutral-black: #39404B;
 }
+
+/* Simple Section Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.appear, 
+.fade-in-left.appear,
+.fade-in-right.appear {
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+}

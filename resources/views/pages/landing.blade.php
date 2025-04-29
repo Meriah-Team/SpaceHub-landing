@@ -83,10 +83,16 @@
         </div>
         {{--  workspace cards container - keeping existing layout  --}}
         <div class="grid grid-cols-3 px-10 gap-8 min-h-screen py-15">
-            @for ($i = 0; $i < 6; $i++)
-                {{-- TODO: Ganti jadi top 6 workspace --}}
-                <x-spacecards></x-spacecards>
-            @endfor
+            @foreach($topWorkspaces as $workspace)
+                <x-spacecards 
+                    :name="$workspace->name"
+                    :address="$workspace->address"
+                    :opening-time="$workspace->opening_time"
+                    :closing-time="$workspace->closing_time"
+                    :image="'images/image.png'"
+                    :id="$workspace->id"
+                />
+            @endforeach
         </div>
     </div>
 

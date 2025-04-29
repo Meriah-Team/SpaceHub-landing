@@ -1,4 +1,4 @@
-<footer class="flex flex-col gap-4 bg-white text-black p-16 h-[35vh]">
+<footer class="flex flex-col gap-4 bg-white text-black p-16 h-[35vh] border-t border-gray-400">
     <div class="container grid grid-cols-2 min-w-full">
         <div class="col-span-1">
             <img src="{{ asset('images/spacehublogo.png') }}" alt="logo" class="h-10">

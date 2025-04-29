@@ -25,10 +25,10 @@
         <!-- Mobile Menu Dropdown -->
         <div x-show="isOpen" id="mobile-menu" class="md:hidden pb-3">
             <div class="flex flex-col space-y-2 text-center">
-                <x-nav-link href="#hero" :active="request()->is('/')">Beranda</x-nav-link>
-                <x-nav-link href="#katalog" :active="false">Katalog</x-nav-link>
-                <x-nav-link href="#about" :active="false">Tentang Kami</x-nav-link>
-                <x-nav-link href="#mitra" :active="false">Mitra</x-nav-link>
+                <x-nav-link href="/#hero" :active="request()->is('/')">Beranda</x-nav-link>
+                <x-nav-link href="/#katalog" :active="false">Katalog</x-nav-link>
+                <x-nav-link href="/#about" :active="false">Tentang Kami</x-nav-link>
+                <x-nav-link href="/#mitra" :active="false">Mitra</x-nav-link>
                 <hr class="my-2">
                 <a href="/onboarding"
                     class="border bg-[var(--color-spacehub)] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-white hover:text-[var(--color-spacehub)] hover:border-[var(--color-spacehub)] text-center">Daftar</a>
@@ -43,7 +43,7 @@
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <a href="#">
+                    <a href="/">
                         <img src="{{ asset('images/spacehublogo.png') }}" alt="logo spacehub"
                             class="h-8 w-auto transition-transform hover:scale-105">
                     </a>
@@ -53,10 +53,10 @@
             <!-- Centered navigation links -->
             <div class="flex-grow flex justify-center">
                 <div class="flex items-center space-x-8">
-                    <x-nav-link href="#hero" :active="request()->is('/')">Beranda</x-nav-link>
-                    <x-nav-link href="#katalog" :active="false">Katalog</x-nav-link>
-                    <x-nav-link href="#about" :active="false">Tentang Kami</x-nav-link>
-                    <x-nav-link href="#mitra" :active="false">Mitra</x-nav-link>
+                    <x-nav-link href="/#hero" :active="request()->is('/')">Beranda</x-nav-link>
+                    <x-nav-link href="/#katalog" :active="false">Katalog</x-nav-link>
+                    <x-nav-link href="/#about" :active="false">Tentang Kami</x-nav-link>
+                    <x-nav-link href="/#mitra" :active="false">Mitra</x-nav-link>
                 </div>
             </div>
 

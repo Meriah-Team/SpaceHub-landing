@@ -21,20 +21,41 @@
                 <div class="w-3 h-3 bg-[var(--color-spacehub)]"></div>
                 <p class="text-lg">Katalog</p>
             </div>
-            <div class="flex flex-row justify-between">
+            <div class="flex flex-row justify-between items-center">
                 <h2 class="font-bold text-lg lg:text-4xl text-[var(--color-spacehub-dark)]">Temukan Kafe dan Workspace</h2>
-                <a href="{{ route('landing.explore') }}"
-                    class="px-5 py-2 bg-[var(--color-spacehub-dark)] text-white rounded-full hover:bg-[var(--color-spacehub)] transition text-base">
-                    Lebih Banyak
-                </a>
+            </div>
+            <div class="flex justify-end">
+                {{-- Search --}}
+                <form action="{{ route('landing.explore') }}" method="GET">
+                    <input 
+                        type="text" 
+                        name="location" 
+                        placeholder="Cari lokasi..."
+                        value="{{ $searchLocation ?? '' }}"
+                        class="px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--color-spacehub)] text-sm bg-white shadow-sm">
+                    </input>
+                </form>
             </div>
             {{--  workspace cards container - keeping existing layout  --}}
-            <div class="grid grid-cols-3 px-10 gap-8 min-h-screen py-15">
-                @for ($i = 0; $i < 12; $i++)
-                    {{-- TODO: Ganti jadi top 6 workspace --}}
-                    <x-spacecards></x-spacecards>
-                @endfor
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
+                @foreach ($topWorkspaces as $workspace)
+                    <div class="block"> 
+                        <x-spacecards 
+                            :name="$workspace->name"
+                            :address="$workspace->address"
+                            :opening-time="$workspace->opening_time"
+                            :closing-time="$workspace->closing_time"
+                            :image="'images/image.png'"
+                            :id="$workspace->id"
+                        />
+                    </div>
+                @endforeach
             </div>
+            @if(isset($topWorkspaces) && method_exists($topWorkspaces, 'links'))
+                <div class="mt-8 flex justify-end">
+                    {{ $topWorkspaces->links() }}
+                </div>
+            @endif
         </div>
 
 

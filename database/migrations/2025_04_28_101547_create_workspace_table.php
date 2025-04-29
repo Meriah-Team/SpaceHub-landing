@@ -15,14 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('address')->nullable();
-            $table->time('opening_time')->nullable();
-            $table->time('closing_time')->nullable();
-            $table->string('phone')->nullable();
+            $table->time('opening_time');
+            $table->time('closing_time');
+            $table->string('phone');
+            $table->string('maps')->nullable();
             $table->string('email')->nullable();
-            $table->number('longitude')->nullable();
-            $table->number('latitude')->nullable();
-            $table->string('Instagram')->nullable();
-            $table->string('TikTok')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table->string('instagram')->nullable();  // lowercase for consistency
+            $table->string('tiktok')->nullable();     // lowercase for consistency
+            $table->json('facilities')->nullable();
+            $table->text('description')->nullable();  // added description field
+            $table->string('city')->nullable();       // added city field
+            $table->string('province')->nullable();   // added province field
             $table->timestamps();
         });
     }
@@ -32,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('workspace');
+        Schema::dropIfExists('workspaces');  // Fixed table name in drop statement
     }
 };
