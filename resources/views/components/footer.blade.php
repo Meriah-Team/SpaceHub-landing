@@ -1,5 +1,5 @@
-<footer class="bg-white text-black py-10 h-[30vh]">
-    <div class="container mx-auto grid grid-cols-2">
+<footer class="flex flex-col gap-4 bg-white text-black p-16 h-[35vh]">
+    <div class="container grid grid-cols-2 min-w-full">
         <div class="col-span-1">
             <img src="{{ asset('images/spacehublogo.png') }}" alt="logo" class="h-10">
         </div>
@@ -16,7 +16,7 @@
         </div>
         
     </div>
-    <div class="text-center mt-5 text-sm text-gray-500">
+    <div class="text-center mt-5 text-xs text-gray-500">
         <p>&copy; {{ date('Y') }} SpaceHub. All rights reserved.</p>
         <p>Menghubungkan Ruang Kerja, Memberdayakan Bisnis</p>
     </div>

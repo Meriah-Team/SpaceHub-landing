@@ -11,8 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('workspace', function (Blueprint $table) {
+        Schema::create('workspaces', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->string('address')->nullable();
+            $table->time('opening_time')->nullable();
+            $table->time('closing_time')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->number('longitude')->nullable();
+            $table->number('latitude')->nullable();
+            $table->string('Instagram')->nullable();
+            $table->string('TikTok')->nullable();
             $table->timestamps();
         });
     }

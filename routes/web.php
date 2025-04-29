@@ -8,3 +8,4 @@ Route::get('/template', function () {
 });
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/explore', [LandingController::class, 'explore'])->name('landing.explore');

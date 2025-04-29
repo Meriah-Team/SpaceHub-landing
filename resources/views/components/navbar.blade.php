@@ -62,8 +62,8 @@
 
             <div class="hidden md:block">
                 <div class="flex items-center space-x-4">
-                    <a href="/"
-                        class="bg-white text-red px-4 py-1 rounded-3xl text-sm font-medium border-1 border-black hover:bg-[var(--color-spacehub)] hover:text-white hover:border-0 transition-colors">Lihat Sekarang</a>
+                    <a href="#katalog"
+                        class="bg-white text-red px-4 py-2 rounded-3xl text-sm font-medium border-1 border-gray-700 hover:bg-[var(--color-spacehub)] hover:text-white hover:border-0 transition-colors">Lihat Sekarang</a>
                 </div>
             </div>
         </div>

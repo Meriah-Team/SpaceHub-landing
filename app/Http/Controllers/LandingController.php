@@ -10,4 +10,8 @@ class LandingController extends Controller
     {
         return view('pages.landing');
     }
+    public function explore()
+    {
+        return view('pages.explore');
+    }
 }

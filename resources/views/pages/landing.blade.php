@@ -76,7 +76,7 @@
         </div>
         <div class="flex flex-row justify-between">
             <h2 class="font-bold text-lg lg:text-4xl text-[var(--color-spacehub-dark)]">Temukan Kafe dan Workspace</h2>
-            <a href=""
+            <a href="{{ route('landing.explore') }}"
                 class="px-5 py-2 bg-[var(--color-spacehub-dark)] text-white rounded-full hover:bg-[var(--color-spacehub)] transition text-base">
                 Lebih Banyak
             </a>
@@ -168,7 +168,7 @@
                     <path d="M4.5 30C74.1307 10.3798 267.414 -17.0885 483.5 30" stroke="#2F327D" stroke-width="8"
                         stroke-linecap="round" />
                 </svg>
-                <a href=""
+                <a href="#"
                     class="font-jakarta font-bold border-2 text-center border-[var(--color-spacehub-dark)] text-[var(--color-spacehub-dark)] rounded-md md:max-w-[35%] px-3 py-2 mt-5 hover:bg-[var(--color-spacehub-dark)] hover:text-white transition duration-300">
                     Lihat Tawaran
                 </a>
