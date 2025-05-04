@@ -1,5 +1,5 @@
 <!-- Mobile Navigation -->
-<nav x-data="{ isOpen: false }" class="md:hidden bg-blue-50 shadow-lg">
+<nav x-data="{ isOpen: false }" class="md:hidden shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between items-center h-16">
             <div class="flex-shrink-0">
@@ -38,7 +38,7 @@
 </nav>
 
 <!-- Desktop Navigation -->
-<nav class="hidden md:block bg-blue-50">
+<nav class="hidden md:block">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">

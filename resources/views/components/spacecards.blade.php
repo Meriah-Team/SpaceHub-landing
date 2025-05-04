@@ -42,7 +42,7 @@
             <p class="text-gray-400 text-sm">{{ $openingTime }} - {{ $closingTime }} WIB</p>
         </div>
     </div>
-    <a href="#" 
+    <a href="/detail" 
        class="bg-[var(--color-spacehub-dark)] py-2 rounded-lg text-white hover:bg-[var(--color-spacehub)] transition duration-300 text-xs text-center mt-auto">
         Detail
     </a>
