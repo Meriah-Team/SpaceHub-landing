@@ -1,0 +1,60 @@
+/* Custom styles for background circles */
+.circle-blue {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 500px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    position: absolute;
+    top: 10rem;
+    right: -25rem;
+    z-index: -20;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+.circle-green {
+    width: 100%;
+    max-width: 100px;
+    height: 100%;
+    max-height: 100px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    position: absolute;
+    top: 33rem;
+    right: -2rem;
+    z-index: -10;
+}
+.blur-circle {
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
+    max-height: 800px;
+    background-color: #c4b5fd;
+    border-radius: 50%;
+    filter: blur(500px);
+    position: absolute;
+    z-index: -50;
+}
+@media (max-width: 768px) {
+
+    .circle-blue {
+        max-width: 300px;
+        max-height: 300px;
+        top: 50rem;
+        right: -12rem;
+        clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+
+    .circle-green {
+        max-width: 60px;
+        max-height: 60px;
+        top: 65rem;
+        right: -0.5rem;
+    }
+
+    .blur-circle {
+        max-width: 600px;
+        max-height: 400px;
+        filter: blur(200px);
+    }
+}
