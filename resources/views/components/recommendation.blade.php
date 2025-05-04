@@ -1,4 +1,4 @@
-<div class="border border-gray-200 rounded-xl p-4 flex flex-col shadow-xl">
+<div class="border border-gray-200 rounded-xl p-4 flex flex-col shadow-xl bg-white">
     <img src="{{asset('img/contoh1.png')}}" alt="Recommendation" class="w-full h-auto rounded">
     <h1 class="mt-2 text-base sm:text-lg font-semibold">PointLab - Private Team/Individual Room</h1>
     <div class="flex items-center mt-2">
