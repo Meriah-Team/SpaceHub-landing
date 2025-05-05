@@ -25,13 +25,11 @@
         <!-- Mobile Menu Dropdown -->
         <div x-show="isOpen" id="mobile-menu" class="md:hidden pb-3">
             <div class="flex flex-col space-y-2 text-center">
-                <x-nav-link href="/#hero" :active="request()->is('/')">Beranda</x-nav-link>
-                <x-nav-link href="/#katalog" :active="false">Katalog</x-nav-link>
-                <x-nav-link href="/#about" :active="false">Tentang Kami</x-nav-link>
-                <x-nav-link href="/#mitra" :active="false">Mitra</x-nav-link>
+                <x-nav-link href="/#hero" :active="request()->is('/')" @click="isOpen = false">Beranda</x-nav-link>
+                <x-nav-link href="/#katalog" :active="false" @click="isOpen = false">Katalog</x-nav-link>
+                <x-nav-link href="/#about" :active="false" @click="isOpen = false">Tentang Kami</x-nav-link>
+                <x-nav-link href="/#mitra" :active="false" @click="isOpen = false">Mitra</x-nav-link>
                 <hr class="my-2">
-                <a href="/onboarding"
-                    class="border bg-[var(--color-spacehub)] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-white hover:text-[var(--color-spacehub)] hover:border-[var(--color-spacehub)] text-center">Daftar</a>
             </div>
         </div>
     </div>

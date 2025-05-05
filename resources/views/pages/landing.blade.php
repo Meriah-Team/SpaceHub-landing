@@ -9,7 +9,7 @@
                     Cari ruang diskusi jadi <br class="hidden md:block"> lebih mudah
                 </h1>
 
-                <svg width="400" height="34" viewBox="0 0 488 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-full max-w-[280px] md:max-w-[400px] h-auto" viewBox="0 0 488 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.5 30C74.1307 10.3798 267.414 -17.0885 483.5 30" stroke="#2F327D" stroke-width="8"
                         stroke-linecap="round" />
                 </svg>
@@ -77,21 +77,16 @@
         <div class="flex flex-row justify-between">
             <h2 class="font-bold text-lg lg:text-4xl text-[var(--color-spacehub-dark)]">Temukan Kafe dan Workspace</h2>
             <a href="{{ route('landing.explore') }}"
-                class="px-5 py-2 bg-[var(--color-spacehub-dark)] text-white rounded-full hover:bg-[var(--color-spacehub)] transition text-base">
-                Lebih Banyak
+                class="text-xs sm:text-sm md:text-base px-3 py-2 md:px-5 md:py-2 bg-[var(--color-spacehub-dark)] text-white rounded-full hover:bg-[var(--color-spacehub)] transition">
+                <span class="hidden sm:inline">Lebih Banyak</span>
+                <span class="sm:hidden">More</span>
             </a>
         </div>
         {{--  workspace cards container - keeping existing layout  --}}
-        <div class="grid grid-cols-3 px-10 gap-8 min-h-screen py-15">
-            @foreach($topWorkspaces as $workspace)
-                <x-spacecards 
-                    :name="$workspace->name"
-                    :address="$workspace->address"
-                    :opening-time="$workspace->opening_time"
-                    :closing-time="$workspace->closing_time"
-                    :image="'images/image.png'"
-                    :id="$workspace->id"
-                />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto px-10 gap-8 min-h-screen py-15">
+            @foreach ($topWorkspaces as $workspace)
+                <x-spacecards :name="$workspace->name" :address="$workspace->address" :opening-time="$workspace->opening_time" :closing-time="$workspace->closing_time" :image="'images/image.png'"
+                    :id="$workspace->id" />
             @endforeach
         </div>
     </div>
@@ -108,8 +103,7 @@
                 <h2 class="font-jakarta font-bold text-xl lg:text-4xl mb-5">Cara <span class="text-yellow-400">Mudah</span>
                     Pesan Ruang Dikusi</h2>
 
-                <svg width="400" height="34" viewBox="0 0 488 34" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-full max-w-[280px] md:max-w-[400px] h-auto" viewBox="0 0 488 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.5 30C74.1307 10.3798 267.414 -17.0885 483.5 30" stroke="#2F327D" stroke-width="8"
                         stroke-linecap="round" />
                 </svg>
@@ -160,7 +154,7 @@
     </div>
 
     {{-- Kemitraan section --}}
-    <div id="mitra" class="bg-gradient-to-br from-white to-blue-100 min-h-[80vh] px-6 md:px-20 py-12">
+    <div id="mitra" class="min-h[80vh] my-10 mx-8">
         <div class="grid grid-cols-2">
             <div class="col-span-1 flex flex-col lg:gap-5">
                 <div class="bg-[var(--color-spacehub-dark)] px-3 py-2 text-white rounded-full  lg:max-w-[25%] text-center">
@@ -169,8 +163,7 @@
                 <h2 class="font-jakarta font-bold text-xl lg:text-4xl text-[var(--color-spacehub-dark)] mt-5">
                     Bergabung bersama SpaceHub!
                 </h2>
-                <svg width="400" height="34" viewBox="0 0 488 34" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-full max-w-[280px] md:max-w-[400px] h-auto" viewBox="0 0 488 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.5 30C74.1307 10.3798 267.414 -17.0885 483.5 30" stroke="#2F327D" stroke-width="8"
                         stroke-linecap="round" />
                 </svg>
@@ -238,13 +231,14 @@
             class="text-white bg-[var(--color-spacehub-dark)] px-6 py-3 rounded-full hover:bg-[var(--color-spacehub)] transition-colors duration-300">
             Jelajahi Tempat
         </a>
-        <div class="flex flex-row gap-2 justify-center items-center w-full max-w-4xl mx-auto group ">
+        <div
+            class="flex flex-col sm:flex-row gap-4 sm:gap-2 justify-center items-center w-full max-w-4xl mx-auto group px-4">
             <img src="{{ asset('images/r.png') }}" alt="gambar group"
-                class="object-contain h-auto max-h-65 w-auto transition-all duration-500 ease-in-out group-hover:scale-105">
+                class="w-full sm:w-1/4 h-auto object-contain transition-all duration-500 ease-in-out group-hover:scale-105">
             <img src="{{ asset('images/c.png') }}" alt="gambar group"
-                class="object-contain h-auto max-h-100 w-auto transition-all duration-500 delay-75 ease-in-out group-hover:scale-110">
+                class="w-full sm:w-1/3 h-auto object-contain transition-all duration-500 delay-75 ease-in-out group-hover:scale-110">
             <img src="{{ asset('images/l.png') }}" alt="gambar group"
-                class="object-contain h-auto max-h-65 w-auto transition-all duration-500 delay-150 ease-in-out group-hover:scale-105">
+                class="w-full sm:w-1/4 h-auto object-contain transition-all duration-500 delay-150 ease-in-out group-hover:scale-105">
         </div>
     </div>
     {{-- FAQ Section --}}
@@ -279,9 +273,10 @@
         <div class="flex flex-col w-full max-w-4xl">
             <div class="text-center mb-8">
                 <h3 class="text-3xl font-semibold text-[var(--color-spacehub-dark)]">Bantu Kami Jadi Lebih Baik</h3>
-                <h4 class="text-gray-500 mt-2">Berikan saran dan masukkan berdasarkan pengalaman anda menggunakan layanan kami!</h4>
+                <h4 class="text-gray-500 mt-2">Berikan saran dan masukkan berdasarkan pengalaman anda menggunakan layanan
+                    kami!</h4>
             </div>
-            
+
             {{-- Feedback Form with CSRF Protection --}}
             <form action="{{ route('feedback.store') }}" method="POST" class="w-full">
                 @csrf
@@ -293,7 +288,7 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="last_name" class="text-sm font-semibold text-gray-500">Nama Belakang</label>
-                        <input type="text" id="last_name" name="last_name" 
+                        <input type="text" id="last_name" name="last_name"
                             class="w-full bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-spacehub-dark)]">
                     </div>
                     <div class="flex flex-col gap-2 md:col-span-2">
