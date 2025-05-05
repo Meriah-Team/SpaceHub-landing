@@ -283,7 +283,7 @@
             </div>
             
             {{-- Feedback Form with CSRF Protection --}}
-            <form action="{{ route('landing.index') }}" method="GET" class="w-full">
+            <form action="{{ route('feedback.store') }}" method="POST" class="w-full">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div class="flex flex-col gap-2">
