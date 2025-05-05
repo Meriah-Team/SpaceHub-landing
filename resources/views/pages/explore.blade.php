@@ -37,7 +37,7 @@
                 </form>
             </div>
             {{--  workspace cards container - keeping existing layout  --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 px-10 py-15 lg:grid-cols-3 gap-8 auto-rows-auto">
                 @foreach ($topWorkspaces as $workspace)
                     <div class="block"> 
                         <x-spacecards 
@@ -70,7 +70,7 @@
                     <h2 class="font-jakarta font-bold text-xl lg:text-4xl text-[var(--color-spacehub-dark)] mt-5">
                         Bergabung bersama SpaceHub!
                     </h2>
-                    <svg width="400" height="34" viewBox="0 0 488 34" fill="none"
+                    <svg class="w-full max-w-[400px] h-auto" viewBox="0 0 488 34" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M4.5 30C74.1307 10.3798 267.414 -17.0885 483.5 30" stroke="#2F327D" stroke-width="8"
                             stroke-linecap="round" />
