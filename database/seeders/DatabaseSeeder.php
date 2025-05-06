@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WorkspaceSeeder::class,
             RoomSeeder::class,
-            FeedbackSeeder::class
+            FeedbackSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }
