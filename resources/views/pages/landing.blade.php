@@ -83,10 +83,16 @@
             </a>
         </div>
         {{--  workspace cards container - keeping existing layout  --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto px-10 gap-8 min-h-screen py-15">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-10 gap-8 py-8 overflow-x-auto flex-nowrap">
             @foreach ($topWorkspaces as $workspace)
-                <x-spacecards :name="$workspace->name" :address="$workspace->address" :opening-time="$workspace->opening_time" :closing-time="$workspace->closing_time" :image="'images/image.png'"
-                    :id="$workspace->id" />
+                <x-spacecards 
+                    :name="$workspace->name" 
+                    :address="$workspace->address" 
+                    :openingTime="$workspace->opening_time" 
+                    :closingTime="$workspace->closing_time" 
+                    :image="$workspace->getCoverImageUrl()" 
+                    :id="$workspace->id" 
+                />
             @endforeach
         </div>
     </div>
