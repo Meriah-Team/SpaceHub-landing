@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         // Run seeders in the correct order
         $this->call([
-            WorkspaceSeeder::class,
-            RoomSeeder::class,
+            // WorkspaceSeeder::class,
+            // RoomSeeder::class,
             FeedbackSeeder::class,
             AdminSeeder::class,
         ]);

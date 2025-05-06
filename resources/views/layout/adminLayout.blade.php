@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('images/squarelogo.png') }}" type="image/x-icon">
     <title>SpaceHub Admin Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -29,7 +30,7 @@
         </div>
         
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 min-h-dvh">
             @yield('content')
         </div>
     </div>

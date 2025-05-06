@@ -28,10 +28,10 @@
                 @forelse($workspaces as $workspace)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="font-medium text-gray-900">{{ $workspace->name }}</div>
+                            <div class="text-sm font-medium text-gray-900">{{ $workspace->name }}</div>
+                            <div class="text-xs text-gray-500">{{ $workspace->address }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="text-sm text-gray-900">{{ $workspace->city }}, {{ $workspace->province }}</div>
                             <div class="text-xs text-gray-500">{{ $workspace->address }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -43,8 +43,13 @@
                             <div class="text-xs">{{ $workspace->email }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button onclick="openEditModal({{ $workspace->id }})" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                            <button onclick="confirmDelete({{ $workspace->id }})" class="text-red-600 hover:text-red-900">Delete</button>
+                            <a href="{{ route('admin.workspace.detail', $workspace->id) }}" class="text-indigo-600 hover:text-indigo-900 inline-flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Detail
+                            </a>
                         </td>
                     </tr>
                 @empty
@@ -65,13 +70,16 @@
 </div>
 
 <!-- Create Workspace Modal -->
-<div id="createModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
-            <form id="createForm" action="#" method="POST">
+<div id="createModal" class="fixed inset-0 z-40 hidden overflow-y-auto">
+    <!-- Overlay -->
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    
+    <!-- Modal content - Added z-50 to make it appear on top -->
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full z-50">
+            <form id="createForm" action="{{ route('admin.workspace.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Create New Workspace</h3>
@@ -89,21 +97,10 @@
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <!-- Location -->
+                    <div class="grid grid-cols-1 gap-4 mb-4">
                         <div>
                             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
                             <input type="text" name="address" id="address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                            <input type="text" name="city" id="city" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        
-                        <div>
-                            <label for="province" class="block text-sm font-medium text-gray-700 mb-1">Province</label>
-                            <input type="text" name="province" id="province" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                     </div>
                     
@@ -151,24 +148,29 @@
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <!-- Coordinates -->
-                        <div>
-                            <label for="latitude" class="block text-sm font-medium text-gray-700 mb-1">Latitude</label>
-                            <input type="text" name="latitude" id="latitude" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        
-                        <div>
-                            <label for="longitude" class="block text-sm font-medium text-gray-700 mb-1">Longitude</label>
-                            <input type="text" name="longitude" id="longitude" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                    </div>
-                    
                     <div class="mb-4">
                         <!-- Facilities -->
                         <label for="facilities" class="block text-sm font-medium text-gray-700 mb-1">Facilities (comma separated)</label>
                         <input type="text" name="facilities" id="facilities" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="WiFi, AC, Coffee">
                         <p class="mt-1 text-xs text-gray-500">Enter facilities separated by commas</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 mb-4">
+                        <!-- Cover Image -->
+                        <div>
+                            <label for="cover_image" class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
+                            <input type="file" name="cover_image" id="cover_image" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <p class="mt-1 text-xs text-gray-500">Main image for workspace listings (JPG, PNG, WebP)</p>
+                        </div>
+                        
+                        <!-- Description Images -->
+                        <div>
+                            <label for="description_images" class="block text-sm font-medium text-gray-700 mb-1">Description Images</label>
+                            <input type="file" name="description_images[]" id="description_images" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <p class="mt-1 text-xs text-gray-500">Additional images for workspace description (JPG, PNG, WebP)</p>
+                        </div>
                     </div>
                 </div>
                 
@@ -258,40 +260,6 @@
     
     function closeEditModal() {
         document.getElementById('editModal').classList.add('hidden');
-    }
-    
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This will delete the workspace and all associated data. This action cannot be undone!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: 'var(--color-spacehub-dark)',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Create and submit form for delete
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = `/admin/workspace/${id}`;
-                
-                const csrfToken = document.createElement('input');
-                csrfToken.type = 'hidden';
-                csrfToken.name = '_token';
-                csrfToken.value = '{{ csrf_token() }}';
-                
-                const method = document.createElement('input');
-                method.type = 'hidden';
-                method.name = '_method';
-                method.value = 'DELETE';
-                
-                form.appendChild(csrfToken);
-                form.appendChild(method);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
     }
 </script>
 @endsection
