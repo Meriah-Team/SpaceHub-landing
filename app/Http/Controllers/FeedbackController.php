@@ -7,6 +7,7 @@ use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
+    
     // Store feedback
     public function store(Request $request){
         $request->validate([

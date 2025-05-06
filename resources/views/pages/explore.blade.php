@@ -27,11 +27,7 @@
             <div class="flex justify-end mb-8">
                 {{-- Search --}}
                 <form action="{{ route('landing.explore') }}" method="GET">
-                    <input 
-                        type="text" 
-                        name="location" 
-                        placeholder="Cari lokasi..."
-                        value="{{ $searchLocation ?? '' }}"
+                    <input type="text" name="location" placeholder="Cari lokasi..." value="{{ $searchLocation ?? '' }}"
                         class="px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--color-spacehub)] text-sm bg-white shadow-sm">
                     </input>
                 </form>
@@ -39,19 +35,13 @@
             {{--  workspace cards container - keeping existing layout  --}}
             <div class="grid grid-cols-1 md:grid-cols-2 px-10 py-15 lg:grid-cols-3 gap-8 auto-rows-auto">
                 @foreach ($topWorkspaces as $workspace)
-                    <div class="block"> 
-                        <x-spacecards 
-                            :name="$workspace->name"
-                            :address="$workspace->address"
-                            :opening-time="$workspace->opening_time"
-                            :closing-time="$workspace->closing_time"
-                            :image="'images/image.png'"
-                            :id="$workspace->id"
-                        />
+                    <div class="block">
+                        <x-spacecards :name="$workspace->name" :address="$workspace->address" :openingTime="$workspace->opening_time" :closingTime="$workspace->closing_time"
+                            :image="$workspace->getCoverImageUrl()" :id="$workspace->id" />
                     </div>
                 @endforeach
             </div>
-            @if(isset($topWorkspaces) && method_exists($topWorkspaces, 'links'))
+            @if (isset($topWorkspaces) && method_exists($topWorkspaces, 'links'))
                 <div class="mt-8 flex justify-end">
                     {{ $topWorkspaces->links() }}
                 </div>
