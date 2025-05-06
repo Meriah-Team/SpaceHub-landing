@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Workspace;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
@@ -18,6 +19,12 @@ class AdminDashboardController extends Controller
             'workspaceCount' => $workspaceCount,
             'feedbackCount' => $feedbackCount,
             'recentFeedback' => $recentFeedback
+        ]);
+    }
+    public function showWorkspaces(){
+        $workspaces = Workspace::all();
+        return view('admin.workspaces', [
+            'workspaces' => $workspaces
         ]);
     }
 }
