@@ -11,6 +11,37 @@
     </button>
 </div>
 
+<!-- Stats Card -->
+<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700">Total Workspaces</h2>
+        <p class="text-3xl font-bold text-[var(--color-spacehub-dark)]">{{ $workspaces->total() }}</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700">Latest Workspace</h2>
+        <p class="text-sm text-gray-600">
+            @if($workspaces->count() > 0)
+                {{ optional($workspaces->sortByDesc('created_at')->first())->name ?? 'N/A' }}
+                <span class="block text-xs text-gray-400">
+                    {{ optional($workspaces->sortByDesc('created_at')->first())->created_at->diffForHumans() ?? '' }}
+                </span>
+            @else
+                No workspaces yet
+            @endif
+        </p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700">Actions</h2>
+        <div class="mt-2">
+            <a href="/admin/workspaces/export" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--color-spacehub-dark)] hover:bg-[var(--color-spacehub)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-spacehub)]">
+                Export Data
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- Workspace Table -->
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
     <div class="overflow-x-auto">
