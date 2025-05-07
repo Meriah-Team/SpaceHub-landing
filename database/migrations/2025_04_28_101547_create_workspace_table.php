@@ -20,14 +20,12 @@ return new class extends Migration
             $table->string('phone');
             $table->string('maps')->nullable();
             $table->string('email')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
-            $table->string('instagram')->nullable();  // lowercase for consistency
-            $table->string('tiktok')->nullable();     // lowercase for consistency
+            $table->string('instagram')->nullable();
+            $table->string('tiktok')->nullable();
             $table->json('facilities')->nullable();
-            $table->text('description')->nullable();  // added description field
-            $table->string('city')->nullable();       // added city field
-            $table->string('province')->nullable();   // added province field
+            $table->text('description')->nullable(); 
+            $table->text('cover_image')->nullable(); 
+            $table->json('description_images')->nullable();
             $table->timestamps();
         });
     }

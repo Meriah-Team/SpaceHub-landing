@@ -8,7 +8,9 @@
 ])
 
 <div class="bg-white rounded-2xl shadow-2xl flex flex-col justify-between p-5 transition-all duration-300 hover:scale-105 h-full">
-    <img src="{{ asset($image) }}" alt="{{ $name }}" class="w-full h-auto rounded-lg object-cover">
+    <div class="h-48 w-full mb-3 overflow-hidden rounded-lg">
+        <img src="{{ $image }}" alt="{{ $name }}" class="w-full h-full object-cover">
+    </div>
     <div class="flex flex-col gap-1 py-2">
         {{-- Workspace Name --}}
         <p class="text-sm font-bold text-left text-gray-800">{{ $name }}</p>
@@ -39,7 +41,7 @@
                 </defs>
             </svg>
             {{-- Open Hours --}}
-            <p class="text-gray-400 text-sm">{{ $openingTime }} - {{ $closingTime }} WIB</p>
+            <p class="text-gray-400 text-sm">{{ substr($openingTime, 0, 5) }} - {{ substr($closingTime, 0, 5) }} WIB</p>
         </div>
     </div>
     <a href="/detail" 

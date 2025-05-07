@@ -2,8 +2,14 @@
 
 @section('content')
     {{--  Hero Section  --}}
-    <div id="hero" class="min-h-[70vh] flex justify-center items-center bg-gradient-to-br from-blue-50 to-white">
-        <div class="container mx-auto px-4 lg:px-8 py-20">
+    <div id="hero" class="min-h-[70vh] flex justify-center items-center bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
+        <!-- Floating badges -->
+        <x-floating-badge text="Komunitas" position="top-[20%] left-[5%]" />
+        <x-floating-badge text="Freelancer" position="top-[20%] right-[5%]" />
+        <x-floating-badge text="Pelajar dan Mahasiswa" position="bottom-[20%] left-[5%]" />
+        <x-floating-badge text="Karyawan" position="bottom-[20%] right-[5%]" />
+
+        <div class="container mx-auto px-4 lg:px-8 py-20 z-10">
             <div class="flex flex-col items-center gap-8 max-w-4xl mx-auto">
                 <h1 class="text-4xl lg:text-4xl font-bold text-center text-[var(--color-spacehub-dark)] font-jakarta">
                     Cari ruang diskusi jadi <br class="hidden md:block"> lebih mudah
@@ -83,10 +89,16 @@
             </a>
         </div>
         {{--  workspace cards container - keeping existing layout  --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto px-10 gap-8 min-h-screen py-15">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-10 gap-8 py-8 overflow-x-auto flex-nowrap">
             @foreach ($topWorkspaces as $workspace)
-                <x-spacecards :name="$workspace->name" :address="$workspace->address" :opening-time="$workspace->opening_time" :closing-time="$workspace->closing_time" :image="'images/image.png'"
-                    :id="$workspace->id" />
+                <x-spacecards 
+                    :name="$workspace->name" 
+                    :address="$workspace->address" 
+                    :openingTime="$workspace->opening_time" 
+                    :closingTime="$workspace->closing_time" 
+                    :image="$workspace->getCoverImageUrl()" 
+                    :id="$workspace->id" 
+                />
             @endforeach
         </div>
     </div>

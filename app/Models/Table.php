@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class Room extends Model
+class Table extends Model
 {
     protected $fillable = [
         'name',
@@ -36,7 +36,7 @@ class Room extends Model
         }
         
         $filename = 'cover_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
-        $path = $imageFile->storeAs("workspaces/{$this->workspace_id}/rooms/{$this->id}", $filename, 'public');
+        $path = $imageFile->storeAs("workspaces/{$this->workspace_id}/tables/{$this->id}", $filename, 'public');
         
         $this->cover_image = $path;
         $this->save();
@@ -48,6 +48,6 @@ class Room extends Model
     {
         return $this->cover_image 
             ? asset('storage/' . $this->cover_image) 
-            : asset('images/default-room.jpg');
+            : asset('images/default-table.jpg');
     }
 }
