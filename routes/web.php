@@ -38,6 +38,8 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::post('/workspace/{workspace}/cover-image', [AdminWorkspaceController::class, 'setCoverImage'])->name('admin.workspace.setCoverImage');
     Route::post('/workspace/{workspace}/description-images', [AdminWorkspaceController::class, 'addDescriptionImages'])->name('admin.workspace.addDescriptionImages');
     Route::delete('workspace/{workspace}/description-image/{index}', [AdminWorkspaceController::class, 'removeDescriptionImage'])->name('admin.workspace.removeDescriptionImage');
+    Route::get('/workspaces/export', [AdminWorkspaceController::class, 'export'])->name('admin.workspaces.export');
+    Route::put('/workspace/{workspace}', [AdminWorkspaceController::class, 'update'])->name('admin.workspace.update');
     
     // Room routes
     Route::post('/room', [AdminRoomController::class, 'store'])->name('admin.room.store');

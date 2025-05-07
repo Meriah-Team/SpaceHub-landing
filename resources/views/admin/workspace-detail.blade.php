@@ -61,12 +61,12 @@
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Social Media</h2>
         @if($workspace->instagram)
             <a href="https://instagram.com/{{ $workspace->instagram }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 block">
-                Instagram: {{ $workspace->instagram }}
+                Instagram
             </a>
         @endif
         @if($workspace->tiktok)
             <a href="https://tiktok.com/@{{ $workspace->tiktok }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 block">
-                TikTok: {{ $workspace->tiktok }}
+                TikTok
             </a>
         @endif
     </div>
@@ -564,6 +564,102 @@
     </div>
 </div>
 
+<!-- Edit Workspace Modal -->
+<div id="editModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full z-50">
+            <form id="editForm" action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Edit Workspace</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="edit_name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" name="name" id="edit_name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        
+                        <div>
+                            <label for="edit_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea name="description" id="edit_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="edit_address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                            <input type="text" name="address" id="edit_address" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        
+                        <div>
+                            <label for="edit_phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                            <input type="text" name="phone" id="edit_phone" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="edit_opening_time" class="block text-sm font-medium text-gray-700 mb-1">Opening Time</label>
+                            <input type="time" name="opening_time" id="edit_opening_time" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        
+                        <div>
+                            <label for="edit_closing_time" class="block text-sm font-medium text-gray-700 mb-1">Closing Time</label>
+                            <input type="time" name="closing_time" id="edit_closing_time" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="edit_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" name="email" id="edit_email" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        
+                        <div>
+                            <label for="edit_maps" class="block text-sm font-medium text-gray-700 mb-1">Google Maps Link</label>
+                            <input type="text" name="maps" id="edit_maps" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="edit_instagram" class="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                            <div class="flex items-center">
+                                <span class="text-gray-500 mr-1">@</span>
+                                <input type="text" name="instagram" id="edit_instagram" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="edit_tiktok" class="block text-sm font-medium text-gray-700 mb-1">TikTok</label>
+                            <div class="flex items-center">
+                                <span class="text-gray-500 mr-1">@</span>
+                                <input type="text" name="tiktok" id="edit_tiktok" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[var(--color-spacehub-dark)] text-base font-medium text-white hover:bg-[var(--color-spacehub)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-spacehub)] sm:ml-3 sm:w-auto sm:text-sm">
+                        Update
+                    </button>
+                    <button type="button" onclick="closeEditModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     // Confirm delete workspace
     function confirmDelete(id) {
@@ -658,23 +754,29 @@
 
     // Open edit modal
     function openEditModal(id) {
-        // Redirect to workspace edit page or show modal
-        // For now, we'll use a simple redirect
-        window.location.href = `/admin/workspace/${id}/edit`;
+        event.preventDefault();
         
-        // If you want to implement a modal instead, uncomment this
-        /*
-        fetch(`/admin/workspace/${id}/edit`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('edit_name').value = data.name;
-                document.getElementById('edit_description').value = data.description || '';
-                // Populate other fields
-                
-                // Show modal
-                document.getElementById('editModal').classList.remove('hidden');
-            });
-        */
+        // Populate all fields from the page data
+        document.getElementById('edit_name').value = "{{ $workspace->name }}";
+        document.getElementById('edit_description').value = "{{ $workspace->description ?? '' }}";
+        document.getElementById('edit_address').value = "{{ $workspace->address }}";
+        document.getElementById('edit_phone').value = "{{ $workspace->phone }}";
+        document.getElementById('edit_opening_time').value = "{{ \Carbon\Carbon::parse($workspace->opening_time)->format('H:i') }}";
+        document.getElementById('edit_closing_time').value = "{{ \Carbon\Carbon::parse($workspace->closing_time)->format('H:i') }}";
+        
+        // Add the new fields
+        document.getElementById('edit_email').value = "{{ $workspace->email ?? '' }}";
+        document.getElementById('edit_maps').value = "{{ $workspace->maps ?? '' }}";
+        document.getElementById('edit_instagram').value = "{{ $workspace->instagram ?? '' }}";
+        document.getElementById('edit_tiktok').value = "{{ $workspace->tiktok ?? '' }}";
+        
+        // Set form action
+        document.getElementById('editForm').action = `/admin/workspace/${id}`;
+        
+        // Show modal
+        document.getElementById('editModal').classList.remove('hidden');
+        
+        return false;
     }
 
     // Add room modal functions
@@ -831,6 +933,11 @@
 
     function closeEditTableModal() {
         document.getElementById('editTableModal').classList.add('hidden');
+    }
+
+    // Close edit modal
+    function closeEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
     }
 </script>
 

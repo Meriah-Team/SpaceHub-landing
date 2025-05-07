@@ -20,9 +20,9 @@
                 <a href="{{ route('admin.workspace') }}" class="block py-2 px-4 rounded {{ request()->routeIs('admin.workspace') ? 'bg-[var(--color-spacehub)]' : 'hover:bg-[var(--color-spacehub-light)]' }}">Workspaces</a>
                 <a href="{{ route('admin.feedback') }}" class="block py-2 px-4 rounded {{ request()->routeIs('admin.feedback') ? 'bg-[var(--color-spacehub)]' : 'hover:bg-[var(--color-spacehub-light)]' }}">Feedback</a>
                 
-                <form x-data method="POST" action="{{ route('admin.logout') }}" class="mt-8" @submit.prevent="confirmLogout">
+                <form method="POST" action="{{ route('admin.logout') }}" class="mt-8" id="logout-form">
                     @csrf
-                    <button type="submit" class="w-full text-left py-2 px-4 rounded bg-red-500 hover:bg-red-600">
+                    <button type="button" onclick="confirmLogout(this)" class="w-full text-left py-2 px-4 rounded bg-red-500 hover:bg-red-600">
                         Logout
                     </button>
                 </form>
@@ -36,7 +36,7 @@
     </div>
 
     <script>
-        function confirmLogout() {
+        function confirmLogout(buttonElement) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You will be logged out of the admin panel",
@@ -47,7 +47,7 @@
                 confirmButtonText: 'Yes, logout'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.closest('form').submit();
+                    buttonElement.closest('form').submit();
                 }
             });
         }

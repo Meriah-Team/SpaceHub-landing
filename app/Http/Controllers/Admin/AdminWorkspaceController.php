@@ -102,4 +102,31 @@ class AdminWorkspaceController extends Controller
         $workspace->removeDescriptionImage($index);
         return response()->json(['success' => true]);
     }
+
+    public function export()
+    {
+        $workspaces = Workspace::all();
+        
+        // Create a timestamp for the filename
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "spacehub_workspaces_export_{$timestamp}.json";
+        
+        // Return JSON response with download headers
+        return response()->json($workspaces)
+            ->header('Content-Disposition', "attachment; filename=\"{$filename}\"")
+            ->header('Content-Type', 'application/json');
+    }
+
+    public function update(Request $request, Workspace $workspace)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            // Add other validations as needed
+        ]);
+        
+        $workspace->update($request->all());
+        
+        return redirect()->back()->with('success', 'Workspace updated successfully');
+    }
 }
