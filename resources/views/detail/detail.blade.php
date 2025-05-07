@@ -6,9 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Detail</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{asset('js/detail.js')}}"></script>
+
+    <style>
+
+        body{
+            scroll-behavior: smooth;
+        }
+
+    </style>
+
 </head>
 
-<body class="overflow-x-hidden relative">
+<body class="overflow-x-hidden">
     <!-- Circle Ungu -->
     <div class="absolute bg-[#7358FF] rounded-l-full right-0 w-[18.75rem] h-[37.5rem] hidden sm:block top-50"></div>
     <!-- Circle Hijau -->
@@ -48,10 +58,12 @@
                     <!-- Mobile Menu Dropdown -->
                     <div x-show="isOpen" id="mobile-menu" class="md:hidden pb-3">
                         <div class="flex flex-col space-y-2 text-center">
-                            <x-nav-link href="/#hero" :active="request()->is('/')" @click="isOpen = false">Beranda</x-nav-link>
-                            <x-nav-link href="/#katalog" :active="false" @click="isOpen = false">Katalog</x-nav-link>
-                            <x-nav-link href="/#about" :active="false" @click="isOpen = false">Tentang Kami</x-nav-link>
-                            <x-nav-link href="/#mitra" :active="false" @click="isOpen = false">Mitra</x-nav-link>
+                            <x-nav-link href="#hero" :active="false" @click="isOpen = false">Beranda</x-nav-link>
+                            <x-nav-link href="#deskripsi" :active="false" @click="isOpen = false">Deskripsi</x-nav-link>
+                            <x-nav-link href="#room" :active="false" @click="isOpen = false">Ruangan</x-nav-link>
+                            <x-nav-link href="#table" :active="false" @click="isOpen = false">Meja</x-nav-link>
+                            <x-nav-link href="#maps" :active="false" @click="isOpen = false">Google Maps</x-nav-link>
+                            <x-nav-link href="#recommendation" :active="false" @click="isOpen = false">Rekomendasi</x-nav-link>
                         </div>
                     </div>
                 </div>
@@ -73,10 +85,12 @@
                         <!-- Centered navigation links -->
                         <div class="flex-grow flex justify-center">
                             <div class="flex items-center space-x-8">
-                                <x-nav-link href="/#hero" :active="request()->is('/')">Beranda</x-nav-link>
-                                <x-nav-link href="/#katalog" :active="false">Katalog</x-nav-link>
-                                <x-nav-link href="/#about" :active="false">Tentang Kami</x-nav-link>
-                                <x-nav-link href="/#mitra" :active="false">Mitra</x-nav-link>
+                                <x-nav-link href="#hero" :active="false">Beranda</x-nav-link>
+                                <x-nav-link href="#deskripsi" :active="false">Deskripsi</x-nav-link>
+                                <x-nav-link href="#about" :active="false">Ruangan</x-nav-link>
+                                <x-nav-link href="#mitra" :active="false">Meja</x-nav-link>
+                                <x-nav-link href="#about" :active="false">Google Maps</x-nav-link>
+                                <x-nav-link href="#mitra" :active="false">Rekomendasi</x-nav-link>
                             </div>
                         </div>
                     </div>
@@ -88,16 +102,113 @@
                 <x-breadcrumbs :breadcrumbs="[['label' => 'Home', 'url' => route('landing.index')], ['label' => 'Katalog', 'url' => route('landing.explore')], ['label' => 'Detail']]" />
 
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-20 justify-between w-full mt-5">
+
                     <div class="flex flex-col w-full lg:w-1/2">
-                        <div>
-                            <img src="{{asset('img/MainImg.png')}}" alt="Main Image" class="w-full h-auto rounded-lg">
+                        <div class="relative">
+                          <img
+                            src="{{asset('img/MainImg.png')}}"
+                            alt="Main Image"
+                            class="w-full h-auto rounded-lg main-image"
+                            id="main-image"
+                          >
+                          <button
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-prev"
+                            aria-label="Previous Image"
+                          >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-next"
+                            aria-label="Next Image"
+                          >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </button>
                         </div>
+
                         <div class="grid grid-cols-3 gap-4 mt-4 w-full">
-                            <img src="{{asset('img/image.png')}}" alt="Thumbnail" class="w-full h-auto rounded">
-                            <img src="{{asset('img/image3.png')}}" alt="Thumbnail" class="w-full h-auto rounded">
-                            <img src="{{asset('img/image2.png')}}" alt="Thumbnail" class="w-full h-auto rounded">
+                            <img
+                                src="{{asset('img/image.png')}}"
+                                alt="Thumbnail"
+                                class="w-full h-auto rounded thumbnail"
+                                data-index="1"
+                            >
+                            <img
+                                src="{{asset('img/image3.png')}}"
+                                alt="Thumbnail"
+                                class="w-full h-auto rounded thumbnail"
+                                data-index="2"
+                            >
+                            <img
+                                src="{{asset('img/image2.png')}}"
+                                alt="Thumbnail"
+                                class="w-full h-auto rounded thumbnail"
+                                data-index="3"
+                            >
                         </div>
                     </div>
+
+                    {{-- Stack Image --}}
+                    {{-- <div class="flex flex-col w-full lg:w-1/2">
+                        <div class="relative">
+                          <img
+                            src="{{ asset('img/MainImg.png') }}"
+                            alt="Main Image"
+                            class="w-full h-auto rounded-lg main-image"
+                            id="main-image"
+                          >
+                          <button
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-prev"
+                            aria-label="Previous Image"
+                          >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                          </button>
+                          <button
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-next"
+                            aria-label="Next Image"
+                          >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 mt-4 w-full">
+                          @php
+                            $maxThumbnails = 3;
+                            $totalImages = count($images); // Assume $images is an array of image paths
+                            $displayedImages = array_slice($images, 0, $maxThumbnails);
+                          @endphp
+
+                          @foreach ($displayedImages as $index => $image)
+                            @if ($index === $maxThumbnails - 1 && $totalImages > $maxThumbnails)
+                              <div class="relative thumbnail" data-index="{{ $index }}" data-src="{{ asset('img/' . $image) }}">
+                                <img
+                                  src="{{ asset('img/' . $image) }}"
+                                  alt="Thumbnail"
+                                  class="w-full h-auto rounded thumbnail-image"
+                                >
+                                <div class="absolute inset-0 bg-black bg-opacity-50 rounded flex items-center justify-center text-white text-lg font-bold">
+                                  +{{ $totalImages - $maxThumbnails }}
+                                </div>
+                              </div>
+                            @else
+                              <img
+                                src="{{ asset('img/' . $image) }}"
+                                alt="Thumbnail"
+                                class="w-full h-auto rounded thumbnail"
+                                data-index="{{ $index }}"
+                                data-src="{{ asset('img/' . $image) }}"
+                              >
+                            @endif
+                          @endforeach
+                        </div>
+                    </div> --}}
 
                     <div class="flex flex-col gap-y-3 mt-6 lg:mt-10 w-full lg:w-1/2">
                         <h1 class="font-bold text-2xl sm:text-3xl lg:text-4xl">Virtual Office (vOffice)</h1>
@@ -156,7 +267,9 @@
                         </div>
 
                     </div>
+
                 </div>
+
             </section>
 
             <!-- Deskripsi -->
@@ -212,7 +325,7 @@
                         </section>
                     </div>
 
-                    <div class="md:w-[60rem] lg:w-3/8 sm:w-full" id="maps">
+                    <div class="w-full lg:w-3/8" id="maps">
                         <p class="text-center text-2xl sm:text-3xl font-semibold">Temukan Lokasi Tempat di <span class="text-orange-500">Maps</span></p>
                         <div class="w-full h-auto border bg-white border-gray-200 shadow-xl rounded-xl mt-5 p-5">
                             <div class="w-full h-64" id="peta">
@@ -281,6 +394,51 @@
 
         <div class="blur-circle top-350 -right-48"></div>
     </div>
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const mainImage = document.getElementById('main-image');
+          const thumbnails = document.querySelectorAll('.thumbnail');
+
+          // Create an array of all image sources (including those not displayed)
+          const allImages = [
+            @foreach ($images as $image)
+              "{{ asset('img/' . $image) }}",
+            @endforeach
+          ];
+
+          const nextButton = document.querySelector('.carousel-next');
+          const prevButton = document.querySelector('.carousel-prev');
+          let currentIndex = 0;
+
+          // Function to update the main image
+          function updateMainImage(index) {
+            mainImage.src = allImages[index];
+            mainImage.alt = `Image ${index + 1}`;
+            currentIndex = index;
+          }
+
+          // Next button click handler
+          nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % allImages.length; // Cycle to next image
+            updateMainImage(currentIndex);
+          });
+
+          // Previous button click handler
+          prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length; // Cycle to previous image
+            updateMainImage(currentIndex);
+          });
+
+          // Click on thumbnail to update main image
+          thumbnails.forEach((thumbnail) => {
+            thumbnail.addEventListener('click', () => {
+              const index = parseInt(thumbnail.getAttribute('data-index'));
+              updateMainImage(index);
+            });
+          });
+        });
+    </script> --}}
 
 </body>
 </html>
