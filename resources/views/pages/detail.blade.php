@@ -292,7 +292,11 @@
                         <!-- Ruangan -->
                         @foreach ($workspace->rooms as $room)
                         <div class="flex flex-col sm:flex-row border border-gray-200 bg-white gap-4 rounded-xl p-4 shadow-lg mt-4">
-                            <img src="{{asset('img/contoh1.png')}}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
+                            @if ($room->cover_image)
+                                <img src="{{ $room->getCoverImageUrl() }}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
+                            @else
+                                <img src="{{asset('img/contoh1.png')}}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
+                            @endif
                             <div class="flex flex-col">
                                 <h2 class="text-lg sm:text-xl font-semibold">{{ $room->name }}</h2>
                                 <div class="flex gap-x-3 mt-2">
@@ -318,11 +322,15 @@
                         @foreach ($workspace->tables as $table)
                         <!-- Meja -->
                         <div class="flex flex-col sm:flex-row border bg-white border-gray-200 gap-4 rounded-xl p-4 shadow-lg mt-4">
-                            <img src="{{asset('img/contoh1.png')}}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
+                            @if ($table->cover_image)
+                                <img src="{{ $table->getCoverImageUrl() }}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
+                            @else
+                                <img src="{{asset('img/contoh1.png')}}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
+                            @endif
                             <div class="flex flex-col">
                                 <h2 class="text-lg sm:text-xl font-semibold">{{ $table->name }}</h2>
                                 <div class="flex gap-x-3 mt-2">
-                                    <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">{{ $table->max_capacity }} Orang</div>
+                                    <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Maks. {{ $table->max_capacity }} Orang</div>
                                     <div class="bg-{{ $table->is_smoking ? 'green' : 'red' }}-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Outdoor</div>
                                 </div>
                                 <h2 class="text-orange-500 mt-2 font-semibold">Minimal Order</h2>
@@ -385,7 +393,13 @@
                     <!-- Rekomendasi -->
                     @foreach ($recommendedWorkspaces as $recommended)
                     <div class="border border-gray-200 rounded-xl p-4 flex flex-col shadow-xl bg-white">
-                        <img src="{{asset('img/contoh1.png')}}" alt="Recommendation" class="w-full h-auto rounded">
+                        @if($recommended->cover_image)
+                            <img src="{{ $recommended->getCoverImageUrl() }}" alt="Recommendation" class="w-full h-auto rounded">
+                        @else
+                            <div class="w-full h-48 bg-gray-200 rounded flex items-center justify-center">
+                                <p class="text-gray-500 text-sm">Tidak ada gambar</p>
+                            </div>
+                        @endif
                         <h1 class="mt-2 text-base sm:text-lg font-semibold">{{ $recommended->name }}</h1>
                         <div class="flex items-center mt-2">
                             <img src="{{asset('img/GrayMap.png')}}" alt="Map" class="w-4 h-4 mr-2">
@@ -396,7 +410,7 @@
                             <p class="text-gray-400 text-sm">{{ $recommended->opening_time }} - {{ $recommended->closing_time }}</p>
                         </div>
                         <a href="{{ route('landing.detail', $recommended->id) }}">
-                            <div class="w-full rounded-lg text-center text-white mt-4 bg-[#363062] py-2 px-4 hover:bg-blue-700 text-sm sm:text-base">Detail</div>
+                            <div class="w-full rounded-lg text-center text-white mt-4 bg-[#363062] py-2 px-4 hover:bg-[#2F327D] text-sm sm:text-base">Detail</div>
                         </a>
                     </div>
                     @endforeach
