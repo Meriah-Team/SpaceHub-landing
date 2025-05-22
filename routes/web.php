@@ -17,8 +17,9 @@ Route::get('/template', function () {
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/explore', [LandingController::class, 'explore'])->name('landing.explore');
-Route::get('/detail', [DetailController::class, 'index'])->name('detail.index');
+Route::get('/detail', [LandingController::class, 'detail'])->name('detail.index');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+Route::get('/detail/{id}', [LandingController::class, 'detail'])->name('landing.detail');
 
 // Admin auth routes
 Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -40,13 +41,13 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::delete('workspace/{workspace}/description-image/{index}', [AdminWorkspaceController::class, 'removeDescriptionImage'])->name('admin.workspace.removeDescriptionImage');
     Route::get('/workspaces/export', [AdminWorkspaceController::class, 'export'])->name('admin.workspaces.export');
     Route::put('/workspace/{workspace}', [AdminWorkspaceController::class, 'update'])->name('admin.workspace.update');
-    
+
     // Room routes
     Route::post('/room', [AdminRoomController::class, 'store'])->name('admin.room.store');
     Route::get('/room/{room}/edit', [AdminRoomController::class, 'edit'])->name('admin.room.edit');
     Route::put('/room/{room}', [AdminRoomController::class, 'update'])->name('admin.room.update');
     Route::delete('/room/{room}', [AdminRoomController::class, 'destroy'])->name('admin.room.destroy');
-    
+
     // Table routes
     Route::post('/table', [AdminTableController::class, 'store'])->name('admin.table.store');
     Route::get('/table/{table}/edit', [AdminTableController::class, 'edit'])->name('admin.table.edit');
