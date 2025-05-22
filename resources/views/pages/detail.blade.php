@@ -4,295 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail | SpaceHub</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Jakarta+Sans:wght@700&display=swap" rel="stylesheet">
+    <title>Detail</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{asset('js/detail.js')}}"></script>
+
     <style>
-        :root {
-            --color-spacehub-dark: #2F327D;
-            --color-spacehub: #3B82F6;
+
+        body{
+            scroll-behavior: smooth;
         }
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Jakarta Sans', sans-serif;
-        }
+
     </style>
+
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md">
-        <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
-            <div>
-                <a href="/">
-                    <img src="{{ asset('images/spacehublogo.png') }}" alt="SpaceHub Logo" class="h-8 w-auto">
-                </a>
-            </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="/#hero" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Beranda</a>
-                <a href="/#katalog" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Katalog</a>
-                <a href="/#about" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Tentang Kami</a>
-                <a href="/#mitra" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Mitra</a>
-            </div>
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">
-                    <svg id="menu-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
-            <div class="flex flex-col items-center py-4 space-y-2">
-                <a href="/#hero" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Beranda</a>
-                <a href="/#katalog" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Katalog</a>
-                <a href="/#about" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Tentang Kami</a>
-                <a href="/#mitra" class="text-gray-600 hover:text-[var(--color-spacehub-dark)]">Mitra</a>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <div id="hero" class="min-h-[70vh] bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
-        <div class="container mx-auto px-4 lg:px-8 py-10">
-            <!-- Breadcrumbs -->
-            <nav class="flex mb-6" aria-label="Breadcrumb">
-                <ol class="flex space-x-2 text-sm text-gray-500">
-                    <li><a href="{{ route('landing.index') }}" class="hover:text-[var(--color-spacehub-dark)]">Home</a></li>
-                    <li>/</li>
-                    <li><a href="{{ route('landing.explore') }}" class="hover:text-[var(--color-spacehub-dark)]">Katalog</a></li>
-                    <li>/</li>
-                    <li class="text-[var(--color-spacehub-dark)]">{{ $workspace->name }}</li>
-                </ol>
-            </nav>
+<body class="overflow-x-hidden">
+    <!-- Circle Ungu -->
+    <div class="absolute bg-[#7358FF] rounded-l-full right-0 w-[18.75rem] h-[37.5rem] hidden sm:block top-50"></div>
+    <!-- Circle Hijau -->
+    <div class="absolute bg-green-400 rounded-l-full right-0 w-[50px] h-[100px] top-180 hidden sm:block"></div>
 
-            <!-- Cover Image -->
-            <div class="w-full h-64 md:h-96 mb-8 rounded-xl overflow-hidden">
-                <img src="{{ $workspace->getCoverImageUrl() }}" alt="{{ $workspace->name }}" class="w-full h-full object-cover">
+<div class="relative py-4 h-full w-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-10">
+
+    <div class="blur-circle -top-100 -left-24"></div>
+
+    <div class="max-w-[90rem] w-full">
+
+        <!-- Mobile Navigation -->
+        <nav x-data="{ isOpen: false }" class="md:hidden shadow-lg">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('images/spacehublogo.png') }}" alt="" class="h-8 w-auto">
+                    </div>
+                    <div class="mobile-menu">
+                        <button id="mobile-menu-button" @click="isOpen = !isOpen"
+                            class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                            <svg :class="{ 'hidden': isOpen, 'block': !isOpen }" class="block size-6" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <svg :class="{ 'block': isOpen, 'hidden': !isOpen }" class="hidden size-6" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Dropdown -->
+                <div x-show="isOpen" id="mobile-menu" class="md:hidden pb-3">
+                    <div class="flex flex-col space-y-2 text-center">
+                        <x-nav-link href="#hero" :active="false" @click="isOpen = false">Beranda</x-nav-link>
+                        <x-nav-link href="#deskripsi" :active="false" @click="isOpen = false">Deskripsi</x-nav-link>
+                        <x-nav-link href="#room" :active="false" @click="isOpen = false">Ruangan</x-nav-link>
+                        <x-nav-link href="#table" :active="false" @click="isOpen = false">Meja</x-nav-link>
+                        <x-nav-link href="#maps" :active="false" @click="isOpen = false">Google Maps</x-nav-link>
+                        <x-nav-link href="#recommendation" :active="false" @click="isOpen = false">Rekomendasi</x-nav-link>
+                    </div>
+                </div>
             </div>
+        </nav>
 
-            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
-                <!-- Left: Basic Info -->
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:block">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="/">
+                                <img src="{{ asset('images/spacehublogo.png') }}" alt="logo spacehub"
+                                    class="h-8 w-auto transition-transform hover:scale-105">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Centered navigation links -->
+                    <div class="flex-grow flex justify-center">
+                        <div class="flex items-center space-x-8">
+                            <x-nav-link href="#hero" :active="false">Beranda</x-nav-link>
+                            <x-nav-link href="#deskripsi" :active="false">Deskripsi</x-nav-link>
+                            <x-nav-link href="#about" :active="false">Ruangan</x-nav-link>
+                            <x-nav-link href="#mitra" :active="false">Meja</x-nav-link>
+                            <x-nav-link href="#about" :active="false">Google Maps</x-nav-link>
+                            <x-nav-link href="#mitra" :active="false">Rekomendasi</x-nav-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="w-full mt-10 flex flex-col md:px-4 sm:px-8 lg:px-14" id="hero">
+            <x-breadcrumbs :breadcrumbs="[['label' => 'Home', 'url' => route('landing.index')], ['label' => 'Katalog', 'url' => route('landing.explore')], ['label' => 'Detail']]" />
+
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-20 justify-between w-full mt-5">
+
                 <div class="flex flex-col w-full lg:w-1/2">
-                    <div class="bg-white rounded-xl shadow-md p-6">
-                        <h1 class="font-bold text-2xl lg:text-4xl text-[var(--color-spacehub-dark)]">{{ $workspace->name }}</h1>
-                        <div class="flex items-center gap-2 mt-3">
-                            <img src="{{ asset('img/location.png') }}" alt="Location" class="w-5 h-5">
-                            <p class="text-gray-500 text-sm lg:text-base">{{ $workspace->address }}</p>
-                        </div>
-                        <div class="flex items-center gap-2 mt-2">
-                            <img src="{{ asset('img/calendar.png') }}" alt="Calendar" class="w-5 h-5">
-                            <p class="text-gray-500 text-sm lg:text-base">Setiap Hari</p>
-                        </div>
-                        <div class="flex items-center gap-2 mt-2">
-                            <img src="{{ asset('img/clock.png') }}" alt="Clock" class="w-5 h-5">
-                            <p class="text-gray-500 text-sm lg:text-base">{{ $workspace->opening_time }} - {{ $workspace->closing_time }}</p>
-                        </div>
+                    <div class="relative">
+                        <img
+                        src="{{asset('img/MainImg.png')}}"
+                        alt="Main Image"
+                        class="w-full h-auto rounded-lg main-image"
+                        id="main-image"
+                        >
+                        <button
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-prev"
+                        aria-label="Previous Image"
+                        >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        </button>
+                        <button
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-next"
+                        aria-label="Next Image"
+                        >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 mt-4 w-full">
+                        <img
+                            src="{{asset('img/image.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="1"
+                        >
+                        <img
+                            src="{{asset('img/image3.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="2"
+                        >
+                        <img
+                            src="{{asset('img/image2.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="3"
+                        >
                     </div>
                 </div>
 
-                <!-- Right: Details -->
-                <div class="flex flex-col w-full lg:w-1/2 text-[var(--color-spacehub-dark)]">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-white rounded-xl shadow-md p-4">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('img/Table.png') }}" alt="Table" class="w-5 h-5">
-                                <p class="font-semibold text-sm lg:text-base">Pilihan Meja</p>
+                {{-- Stack Image --}}
+                {{-- <div class="flex flex-col w-full lg:w-1/2">
+                    <div class="relative">
+                        <img
+                        src="{{ asset('img/MainImg.png') }}"
+                        alt="Main Image"
+                        class="w-full h-auto rounded-lg main-image"
+                        id="main-image"
+                        >
+                        <button
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-prev"
+                        aria-label="Previous Image"
+                        >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        </button>
+                        <button
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-next"
+                        aria-label="Next Image"
+                        >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 mt-4 w-full">
+                        @php
+                        $maxThumbnails = 3;
+                        $totalImages = count($images); // Assume $images is an array of image paths
+                        $displayedImages = array_slice($images, 0, $maxThumbnails);
+                        @endphp
+
+                        @foreach ($displayedImages as $index => $image)
+                        @if ($index === $maxThumbnails - 1 && $totalImages > $maxThumbnails)
+                            <div class="relative thumbnail" data-index="{{ $index }}" data-src="{{ asset('img/' . $image) }}">
+                            <img
+                                src="{{ asset('img/' . $image) }}"
+                                alt="Thumbnail"
+                                class="w-full h-auto rounded thumbnail-image"
+                            >
+                            <div class="absolute inset-0 bg-black bg-opacity-50 rounded flex items-center justify-center text-white text-lg font-bold">
+                                +{{ $totalImages - $maxThumbnails }}
                             </div>
-                            <p class="text-gray-600 mt-1 text-sm">{{ $workspace->tables->count() }} Meja</p>
+                            </div>
+                        @else
+                            <img
+                            src="{{ asset('img/' . $image) }}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="{{ $index }}"
+                            data-src="{{ asset('img/' . $image) }}"
+                            >
+                        @endif
+                        @endforeach
+                    </div>
+                </div> --}}
+
+                <div class="flex flex-col gap-y-3 mt-6 lg:mt-10 w-full lg:w-1/2">
+                    <h1 class="font-bold text-2xl sm:text-3xl lg:text-4xl">{{ $workspace->name }}</h1>
+                    <div class="flex gap-x-2 mt-3 items-center">
+                        <img src="{{asset('img/location.png')}}" alt="Location" class="w-5 h-5">
+                        <h1 class="text-gray-500 text-sm sm:text-base">{{ $workspace->address }}</h1>
+                    </div>
+                    <div class="flex gap-x-2 items-center">
+                        <img src="{{asset('img/calendar.png')}}" alt="Calendar" class="w-5 h-5">
+                        <p class="text-gray-500 text-sm sm:text-base">Setiap Hari</p>
+                    </div>
+                    <div class="flex gap-x-2 items-center">
+                        <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                        <p class="text-gray-500 text-sm sm:text-base">{{ $workspace->opening_time }} - {{ $workspace->closing_time }}</p>
+                    </div>
+
+                    <div class="flex flex-col gap-y-5 mt-6 w-full max-w-full">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
+                                <div class="flex items-center gap-x-2">
+                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <p class="font-semibold">Pilihan Meja</p>
+                                </div>
+                                <p class="px-1 text-gray-600 mt-1">{{ $workspace->tables->count() }} Meja</p>
+                            </div>
+                            <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
+                                <div class="flex items-center gap-x-2">
+                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <p class="font-semibold">Pilihan Ruangan</p>
+                                </div>
+                                <p class="px-1 text-gray-600 mt-1">{{ $workspace->rooms->count() }} Ruangan</p>
+                            </div>
                         </div>
-                        <div class="bg-white rounded-xl shadow-md p-4">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('img/Room.png') }}" alt="Room" class="w-5 h-5">
-                                <p class="font-semibold text-sm lg:text-base">Pilihan Ruangan</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
+                                <div class="flex items-center gap-x-2">
+                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <p class="font-semibold">Daftar Menu</p>
+                                </div>
+                                <p class="px-1 text-gray-600 mt-1">Klik <span class="text-orange-500 font-bold">Menu</span></p>
                             </div>
-                            <p class="text-gray-600 mt-1 text-sm">{{ $workspace->rooms->count() }} Ruangan</p>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-md p-4">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('img/clock.png') }}" alt="Menu" class="w-5 h-5">
-                                <p class="font-semibold text-sm lg:text-base">Daftar Menu</p>
+                            <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
+                                <div class="flex items-center gap-x-2">
+                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <p class="font-semibold">Kontak WhatsApp</p>
+                                </div>
+                                <p class="px-1 text-gray-600 mt-1">
+                                    Hubungi via
+                                    <a href="https://wa.me/{{ $workspace->phone }}" class="text-green-500 font-bold hidden md:inline">WA</a>
+                                    <a href="https://wa.me/{{ $workspace->phone }}" class="text-green-500 font-bold md:hidden sm:inline">WhatsApp</a>
+                                    </p>
                             </div>
-                            <p class="text-gray-600 mt-1 text-sm">Klik <a href="#" class="text-yellow-400 font-semibold">Menu</a></p>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-md p-4">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('img/phone.png') }}" alt="WhatsApp" class="w-5 h-5">
-                                <p class="font-semibold text-sm lg:text-base">Kontak WhatsApp</p>
-                            </div>
-                            <p class="text-gray-600 mt-1 text-sm">
-                                Hubungi via <a href="https://wa.me/{{ $workspace->phone }}" class="text-green-500 font-semibold">WhatsApp</a>
-                            </p>
                         </div>
                     </div>
+
                 </div>
+
             </div>
-        </div>
-    </div>
 
-    <!-- Description Section -->
-    <section id="deskripsi" class="bg-blue-50 px-6 md:px-20 py-12">
-        <div class="container mx-auto">
-            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
-                <!-- Left: Description, Rooms, Tables -->
-                <div class="w-full lg:w-2/3">
-                    <div class="flex items-center gap-2 mb-5">
-                        <div class="w-3 h-3 bg-[var(--color-spacehub)]"></div>
-                        <p class="text-lg text-[var(--color-spacehub-dark)]">Deskripsi Lokasi</p>
-                    </div>
-                    <h2 class="font-bold text-xl lg:text-3xl text-[var(--color-spacehub-dark)] mb-5">{{ $workspace->name }}</h2>
-                    <p class="text-sm lg:text-base text-gray-700 mb-8">{{ $workspace->description ?? 'No description available.' }}</p>
+        </section>
 
-                    <!-- Rooms -->
-                    <div class="mt-10">
-                        <div class="flex items-center gap-2 mb-5">
-                            <img src="{{ asset('img/Room.png') }}" alt="Room" class="w-8 h-8">
-                            <h3 class="font-semibold text-lg lg:text-2xl text-[var(--color-spacehub-dark)]">Pilihan Ruangan</h3>
+        <!-- Deskripsi -->
+        <section class="mt-10 flex flex-col px-4 sm:px-8 lg:px-14" id="deskripsi">
+            <div class="flex flex-col lg:flex-row gap-[5rem]">
+                <div class="w-full lg:w-5/8">
+                    <!-- Deskripsi -->
+                    <div class="text-2xl sm:text-3xl font-semibold">Deskripsi Lokasi</div>
+                    <p class="mt-6 text-gray-700 text-sm sm:text-base">
+                        {{ $workspace->description ?? 'No description available.' }}
+                    </p>
+
+                    <!-- Pilihan Ruangan -->
+                    <section class="mt-10 flex flex-col">
+                        <div class="flex items-center gap-x-4 font-semibold text-2xl sm:text-3xl mb-6">
+                            <img src="{{asset('img/Room.png')}}" alt="Room" class="w-8 h-8">
+                            Pilihan Ruangan
                         </div>
+
+                        <!-- Ruangan -->
                         @foreach ($workspace->rooms as $room)
-                            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                                <div class="flex flex-col">
-                                    <h4 class="font-semibold text-lg">{{ $room->name }}</h4>
-                                    <div class="flex gap-2 mt-2">
-                                        <span class="bg-green-500 text-white text-xs sm:text-sm px-2 py-1 rounded-xl">Maks. {{ $room->max_capacity }} Orang</span>
-                                        <span class="bg-{{ $room->is_smoking ? 'green' : 'red' }}-500 text-white text-xs sm:text-sm px-2 py-1 rounded-xl">{{ $room->is_smoking ? 'Smoking' : 'Non Smoking' }}</span>
-                                    </div>
-                                    <p class="text-yellow-400 font-semibold mt-2">Mulai Dari</p>
-                                    <p class="font-semibold text-base">Rp. {{ number_format($room->starting_price, 0, ',', '.') }} / 2 jam</p>
+                        <div class="flex flex-col sm:flex-row border border-gray-200 bg-white gap-4 rounded-xl p-4 shadow-lg mt-4">
+                            <img src="{{asset('img/contoh1.png')}}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
+                            <div class="flex flex-col">
+                                <h2 class="text-lg sm:text-xl font-semibold">{{ $room->name }}</h2>
+                                <div class="flex gap-x-3 mt-2">
+                                    <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Maks. {{$room->max_capacity}} Orang</div>
+                                    <div class="bg-{{ $room->is_smoking ? 'green' : 'red' }}-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">{{ $room->is_smoking ? 'Smoking' : 'Non Smoking' }}</div>
                                 </div>
+                                <h2 class="text-orange-500 mt-2 font-semibold">Mulai Dari</h2>
+                                <h2 class="font-semibold text-base sm:text-lg">Rp. {{ number_format($room->starting_price, 0, ',', '.') }} / 2 jam</h2>
                             </div>
-                        @endforeach
-                    </div>
-
-                    <!-- Tables -->
-                    <div class="mt-10">
-                        <div class="flex items-center gap-2 mb-5">
-                            <img src="{{ asset('img/Table.png') }}" alt="Table" class="w-8 h-8">
-                            <h3 class="font-semibold text-lg lg:text-2xl text-[var(--color-spacehub-dark)]">Pilihan Meja</h3>
                         </div>
-                        @foreach ($workspace->tables as $table)
-                            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                                <div class="flex flex-col">
-                                    <h4 class="font-semibold text-lg">{{ $table->name }}</h4>
-                                    <div class="flex gap-2 mt-2">
-                                        <span class="bg-green-500 text-white text-xs sm:text-sm px-2 py-1 rounded-xl">{{ $table->max_capacity }} Orang</span>
-                                        <span class="bg-{{ $table->is_smoking ? 'green' : 'red' }}-500 text-white text-xs sm:text-sm px-2 py-1 rounded-xl">{{ $table->is_smoking ? 'Indoor' : 'Outdoor' }}</span>
-                                    </div>
-                                    <p class="text-yellow-400 font-semibold mt-2">Minimal Order</p>
-                                    <p class="font-semibold text-base">Rp. {{ number_format($table->starting_price, 0, ',', '.') }} / 2 jam</p>
-                                </div>
-                            </div>
+
                         @endforeach
-                    </div>
+
+                    </section>
+
+                    <!-- Pilihan Meja -->
+                    <section class="mt-10 flex flex-col">
+                        <div class="flex items-center font-semibold gap-x-4 text-2xl sm:text-3xl mb-5">
+                            <img src="{{asset('img/Table.png')}}" alt="Table" class="w-8 h-8">
+                            Pilihan Meja
+                        </div>
+
+                        @foreach ($workspace->tables as $table)
+                        <!-- Meja -->
+                        <div class="flex flex-col sm:flex-row border bg-white border-gray-200 gap-4 rounded-xl p-4 shadow-lg mt-4">
+                            <img src="{{asset('img/contoh1.png')}}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
+                            <div class="flex flex-col">
+                                <h2 class="text-lg sm:text-xl font-semibold">{{ $table->name }}</h2>
+                                <div class="flex gap-x-3 mt-2">
+                                    <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">{{ $table->max_capacity }} Orang</div>
+                                    <div class="bg-{{ $table->is_smoking ? 'green' : 'red' }}-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Outdoor</div>
+                                </div>
+                                <h2 class="text-orange-500 mt-2 font-semibold">Minimal Order</h2>
+                                <h2 class="font-semibold text-base sm:text-lg">Rp. {{ number_format($table->starting_price, 0, ',', '.') }} / 2 jam</h2>
+                            </div>
+                        </div>
+
+                        @endforeach
+
+                    </section>
                 </div>
 
-                <!-- Right: Map, Facilities, Contact -->
-                <div class="w-full lg:w-1/3">
-                    <div class="flex items-center gap-2 mb-5">
-                        <div class="w-3 h-3 bg-[var(--color-spacehub)]"></div>
-                        <p class="text-lg text-[var(--color-spacehub-dark)]">Temukan Lokasi</p>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md p-5">
-                        <div class="w-full h-64">
-                            <iframe src="{{ $workspace->maps }}" width="100%" height="100%" style="border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="w-full lg:w-3/8" id="maps">
+                    <p class="text-center text-2xl sm:text-3xl font-semibold">Temukan Lokasi Tempat di <span class="text-orange-500">Maps</span></p>
+                    <div class="w-full h-auto border bg-white border-gray-200 shadow-xl rounded-xl mt-5 p-5">
+                        <div class="w-full h-64" id="peta">
+                            <iframe src="{{ $workspace->maps }}" width="100%" height="100%" style="border-radius:20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <h3 class="font-semibold text-lg mt-5">Fasilitas Lokasi</h3>
-                        <ul class="text-sm list-disc ml-5 mt-2">
+                        <div class="flex flex-col items-start" id="fasilitas">
+                            <h2 class="text-xl sm:text-2xl font-semibold mt-5">Fasilitas Lokasi</h2>
+                            <ul class="text-sm font-medium list-disc flex flex-col ml-5 gap-y-1 mt-1">
                             @foreach ($workspace->facilities ?? [] as $facility)
                                 <li>{{ $facility }}</li>
                             @endforeach
-                        </ul>
-                        <a href="{{ $workspace->maps }}" target="_blank" class="block text-center text-white bg-[var(--color-spacehub-dark)] px-4 py-2 rounded-full mt-4 hover:bg-[var(--color-spacehub)] transition">Buka Maps</a>
-                    </div>
 
-                    <h3 class="font-semibold text-lg lg:text-2xl mt-8 text-[var(--color-spacehub-dark)]">Hubungi Sekarang</h3>
-                    <div class="bg-white rounded-xl shadow-md p-5 mt-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold text-lg">Kontak WhatsApp</h4>
-                                <p class="text-sm">Hubungi via <a href="https://wa.me/{{ $workspace->phone }}" class="text-green-500 font-semibold">WhatsApp</a></p>
-                            </div>
-                            <img src="{{ asset('img/phone.png') }}" alt="Phone" class="w-8 h-8">
+                            </ul>
+
+                            <a href="{{ $workspace->maps }}" class="w-full text-center text-sm sm:text-base text-white bg-[#363062] p-2 rounded-xl mt-5 transition ease-in-out hover:-translate-y-1 duration-300">Buka Maps</a>
                         </div>
-                        <a href="https://wa.me/{{ $workspace->phone }}" class="block text-center text-white bg-[#00C652] px-4 py-2 rounded-full mt-4">Chat WhatsApp</a>
+                    </div>
+                    <h1 class="mt-10 text-2xl sm:text-3xl font-bold mb-3">Hubungi Sekarang</h1>
+                    <div class="flex flex-col border border-gray-200 w-full text-start py-5 px-6 sm:px-8 rounded-xl shadow-xl bg-white">
+                        <div class="flex justify-between items-center">
+                            <div class="flex flex-col text-sm">
+                                <h1 class="font-semibold text-xl sm:text-2xl">Kontak WhatsApp</h1>
+                                <h3 class="text-lg sm:text-xl">Hubungi via <span class="text-green-400 font-bold">WhatsApp</span></h3>
+                            </div>
+                            <img src="{{asset('img/phone.png')}}" alt="Phone" class="w-8 h-8">
+                        </div>
+                        <a href="https://wa.me/{{ $workspace->phone }}" class="w-full text-center text-sm sm:text-base text-white bg-[#00C652] p-2 rounded-xl mt-6 transition ease-in-out hover:-translate-y-1 duration-300">Chat WhatsApp</a>
                     </div>
 
-                    <h3 class="font-semibold text-lg lg:text-2xl mt-8 text-[var(--color-spacehub-dark)]">Social Media</h3>
-                    <div class="bg-white rounded-xl shadow-md p-5 mt-4">
-                        @if ($workspace->instagram)
-                            <p class="text-sm"><span class="font-semibold">Instagram:</span> <a href="{{ $workspace->instagram }}" target="_blank" class="text-[var(--color-spacehub)]">@{{ str_replace('https://www.instagram.com/', '', $workspace->instagram) }}</a></p>
-                        @endif
-                        @if ($workspace->tiktok)
-                            <p class="text-sm mt-2"><span class="font-semibold">TikTok:</span> <a href="{{ $workspace->tiktok }}" target="_blank" class="text-[var(--color-spacehub)]">@{{ str_replace('https://www.tiktok.com/@', '', $workspace->tiktok) }}</a></p>
-                        @endif
+                    <h1 class="mt-10 text-2xl sm:text-3xl font-bold mb-3">Social Media</h1>
+                    <div class="w-full p-5 flex flex-col border rounded-xl shadow-xl bg-white border-gray-200 gap-y-2">
+
+                        {{-- Instagram --}}
+                        <h1 class="text-sm sm:text-base"><span class="font-semibold">Instagram : </span> <a href="https://www.instagram.com/{{ $workspace->instagram }}">{{ $workspace->instagram }}</a></h1>
+
+                        {{-- Tiktok --}}
+                        <h1 class="text-sm sm:text-base"><span class="font-semibold">TikTok : </span> <a href="https://www.tiktok.com/{{ $workspace->tiktok }}">{{ $workspace->tiktok }}</a></h1>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Recommendations -->
-            <div class="mt-12">
-                <div class="flex items-center gap-2 mb-5">
-                    <div class="w-3 h-3 bg-[var(--color-spacehub)]"></div>
-                    <p class="text-lg text-[var(--color-spacehub-dark)]">Rekomendasi Tempat Lainnya</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Rekomendasi -->
+            <section class="mt-10 flex flex-col mb-20">
+                <div class="font-semibold text-2xl sm:text-3xl mb-6">Rekomendasi Tempat Lainnya</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Rekomendasi -->
                     @foreach ($recommendedWorkspaces as $recommended)
-                        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                            <div class="h-48 w-full">
-                                <img src="{{ $recommended->getCoverImageUrl() }}" alt="{{ $recommended->name }}" class="w-full h-full object-cover">
-                            </div>
-                            <div class="p-4">
-                                <h4 class="text-base sm:text-lg font-semibold text-[var(--color-spacehub-dark)]">{{ $recommended->name }}</h4>
-                                <div class="flex items-center mt-2">
-                                    <img src="{{ asset('img/GrayMap.png') }}" alt="Map" class="w-4 h-4 mr-2">
-                                    <p class="text-gray-400 text-sm">{{ $recommended->address }}</p>
-                                </div>
-                                <div class="flex items-center mt-1">
-                                    <img src="{{ asset('img/GrayJam.png') }}" alt="Clock" class="w-4 h-4 mr-2">
-                                    <p class="text-gray-400 text-sm">{{ $recommended->opening_time }} - {{ $recommended->closing_time }}</p>
-                                </div>
-                                <a href="{{ route('landing.detail', $recommended->id) }}" class="block text-center text-white bg-[var(--color-spacehub-dark)] px-4 py-2 rounded-full mt-4 hover:bg-[var(--color-spacehub)]">Detail</a>
-                            </div>
+                    <div class="border border-gray-200 rounded-xl p-4 flex flex-col shadow-xl bg-white">
+                        <img src="{{asset('img/contoh1.png')}}" alt="Recommendation" class="w-full h-auto rounded">
+                        <h1 class="mt-2 text-base sm:text-lg font-semibold">{{ $recommended->name }}</h1>
+                        <div class="flex items-center mt-2">
+                            <img src="{{asset('img/GrayMap.png')}}" alt="Map" class="w-4 h-4 mr-2">
+                            <p class="text-gray-400 text-sm">{{ $recommended->address }}</p>
                         </div>
+                        <div class="flex items-center mt-1">
+                            <img src="{{asset('img/GrayJam.png')}}" alt="Clock" class="w-4 h-4 mr-2">
+                            <p class="text-gray-400 text-sm">{{ $recommended->opening_time }} - {{ $recommended->closing_time }}</p>
+                        </div>
+                        <a href="{{ route('landing.detail', $recommended->id) }}">
+                            <div class="w-full rounded-lg text-center text-white mt-4 bg-[#363062] py-2 px-4 hover:bg-blue-700 text-sm sm:text-base">Detail</div>
+                        </a>
+                    </div>
                     @endforeach
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Footer -->
-    <footer class="bg-[var(--color-spacehub-dark)] text-white py-8">
-        <div class="container mx-auto px-4 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                    <img src="{{ asset('images/spacehublogo.png') }}" alt="SpaceHub Logo" class="h-8 w-auto">
-                    <p class="mt-2 text-sm">SpaceHub - Menyatukanmu dengan ruang diskusi terbaik.</p>
-                </div>
-                <div class="mt-4 md:mt-0">
-                    <p class="text-sm">&copy; 2025 SpaceHub. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </section>
 
-    <!-- Mobile Menu Script -->
-    <script>
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
-            mobileMenu.classList.toggle('hidden');
-            menuIcon.classList.toggle('hidden');
-            closeIcon.classList.toggle('hidden');
+        <div class="w-full h-px bg-[#2F327D]"></div>
+
+        <!-- Footer -->
+        <x-footer></x-footer>
+    </div>
+
+    <div class="blur-circle top-350 -right-48"></div>
+</div>
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainImage = document.getElementById('main-image');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+
+        // Create an array of all image sources (including those not displayed)
+        const allImages = [
+        @foreach ($images as $image)
+            "{{ asset('img/' . $image) }}",
+        @endforeach
+        ];
+
+        const nextButton = document.querySelector('.carousel-next');
+        const prevButton = document.querySelector('.carousel-prev');
+        let currentIndex = 0;
+
+        // Function to update the main image
+        function updateMainImage(index) {
+        mainImage.src = allImages[index];
+        mainImage.alt = `Image ${index + 1}`;
+        currentIndex = index;
+        }
+
+        // Next button click handler
+        nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % allImages.length; // Cycle to next image
+        updateMainImage(currentIndex);
         });
-    </script>
+
+        // Previous button click handler
+        prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length; // Cycle to previous image
+        updateMainImage(currentIndex);
+        });
+
+        // Click on thumbnail to update main image
+        thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            const index = parseInt(thumbnail.getAttribute('data-index'));
+            updateMainImage(index);
+        });
+        });
+    });
+</script> --}}
+
 </body>
 </html>
