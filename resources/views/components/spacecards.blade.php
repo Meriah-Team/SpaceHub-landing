@@ -44,7 +44,7 @@
             <p class="text-gray-400 text-sm">{{ substr($openingTime, 0, 5) }} - {{ substr($closingTime, 0, 5) }} WIB</p>
         </div>
     </div>
-    <a href="/detail" 
+    <a href="{{ route('landing.detail', $id) }}"
        class="bg-[var(--color-spacehub-dark)] py-2 rounded-lg text-white hover:bg-[var(--color-spacehub)] transition duration-300 text-xs text-center mt-auto">
         Detail
     </a>
