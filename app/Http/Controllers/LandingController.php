@@ -21,8 +21,8 @@ class LandingController extends Controller
 
         if ($searchLocation) {
             $query->where('name', 'like', "%{$searchLocation}%")
-                  ->orWhere('address', 'like', "%{$searchLocation}%")
-                  ->orWhere('city', 'like', "%{$searchLocation}%");
+                  ->orWhere('address', 'like', "%{$searchLocation}%");
+                //   ->orWhere('city', 'like', "%{$searchLocation}%");
         }
 
         $topWorkspaces = $query->paginate(12);
