@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Detail - {{ $workspace->name }}</title>
     <link rel="icon" href="{{ asset('images/squarelogo.png') }}" type="image/x-icon">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{asset('js/detail.js')}}"></script>
 
