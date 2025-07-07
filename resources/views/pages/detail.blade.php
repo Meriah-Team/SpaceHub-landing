@@ -219,11 +219,11 @@
                         <h1 class="text-gray-500 text-sm sm:text-base">{{ $workspace->address }}</h1>
                     </div>
                     <div class="flex gap-x-2 items-center">
-                        <img src="{{asset('img/calendar.png')}}" alt="Calendar" class="w-5 h-5">
+                        <img src="{{asset('img/Calendar.png')}}" alt="Calendar" class="w-5 h-5">
                         <p class="text-gray-500 text-sm sm:text-base">Setiap Hari</p>
                     </div>
                     <div class="flex gap-x-2 items-center">
-                        <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                        <img src="{{asset('img/Clock.png')}}" alt="Clock" class="w-5 h-5">
                         <p class="text-gray-500 text-sm sm:text-base">{{ $workspace->opening_time }} - {{ $workspace->closing_time }}</p>
                     </div>
 
@@ -232,14 +232,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
                                 <div class="flex items-center gap-x-2">
-                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <img src="{{asset('img/Clock.png')}}" alt="Clock" class="w-5 h-5">
                                     <p class="font-semibold">Pilihan Meja</p>
                                 </div>
                                 <p class="px-1 text-gray-600 mt-1">{{ $workspace->tables->count() }} Meja</p>
                             </div>
                             <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
                                 <div class="flex items-center gap-x-2">
-                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <img src="{{asset('img/Clock.png')}}" alt="Clock" class="w-5 h-5">
                                     <p class="font-semibold">Pilihan Ruangan</p>
                                 </div>
                                 <p class="px-1 text-gray-600 mt-1">{{ $workspace->rooms->count() }} Ruangan</p>
@@ -249,14 +249,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
                                 <div class="flex items-center gap-x-2">
-                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <img src="{{asset('img/Clock.png')}}" alt="Clock" class="w-5 h-5">
                                     <p class="font-semibold">Daftar Menu</p>
                                 </div>
                                 <p class="px-1 text-gray-600 mt-1">Klik <span class="text-orange-500 font-bold">Menu</span></p>
                             </div>
                             <div class="py-4 px-3 border border-gray-100 shadow-md rounded-xl bg-white">
                                 <div class="flex items-center gap-x-2">
-                                    <img src="{{asset('img/clock.png')}}" alt="Clock" class="w-5 h-5">
+                                    <img src="{{asset('img/Clock.png')}}" alt="Clock" class="w-5 h-5">
                                     <p class="font-semibold">Kontak WhatsApp</p>
                                 </div>
                                 <p class="px-1 text-gray-600 mt-1">
