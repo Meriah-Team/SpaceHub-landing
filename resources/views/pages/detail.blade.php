@@ -370,7 +370,7 @@
                                 <h1 class="font-semibold text-xl sm:text-2xl">Kontak WhatsApp</h1>
                                 <h3 class="text-lg sm:text-xl">Hubungi via <span class="text-green-400 font-bold">WhatsApp</span></h3>
                             </div>
-                            <img src="{{asset('img/phone.png')}}" alt="Phone" class="w-8 h-8">
+                            <img src="{{asset('img/Phone.png')}}" alt="Phone" class="w-8 h-8">
                         </div>
                         <a href="https://wa.me/{{ $workspace->phone }}" class="w-full text-center text-sm sm:text-base text-white bg-[#00C652] p-2 rounded-xl mt-6 transition ease-in-out hover:-translate-y-1 duration-300">Chat WhatsApp</a>
                     </div>
