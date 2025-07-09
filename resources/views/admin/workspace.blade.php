@@ -202,6 +202,13 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                             <p class="mt-1 text-xs text-gray-500">Additional images for workspace description (JPG, PNG, WebP)</p>
                         </div>
+                        
+                        <!-- Google Maps Iframe -->
+                        <div>
+                            <label for="iframe" class="block text-sm font-medium text-gray-700 mb-1">Google Maps Iframe</label>
+                            <textarea name="iframe" id="iframe" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="<iframe src=&quot;https://www.google.com/maps/embed?...&quot; width=&quot;100%&quot; height=&quot;100%&quot; style=&quot;border-radius:20px;&quot; allowfullscreen=&quot;&quot;></iframe>"></textarea>
+                            <p class="mt-1 text-xs text-gray-500">Paste the full iframe HTML code from Google Maps</p>
+                        </div>
                     </div>
                 </div>
                 
