@@ -14,6 +14,7 @@ class Workspace extends Model
         'closing_time',
         'phone',
         'maps',
+        'iframe',
         'email',
         'instagram',
         'tiktok',
