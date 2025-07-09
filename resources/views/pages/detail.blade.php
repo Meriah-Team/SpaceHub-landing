@@ -17,7 +17,7 @@
 
         /**
          * CSS untuk membuat iframe responsif
-         *
+         * 
          * Teknik ini menggunakan pendekatan "aspect ratio container" yang umum digunakan
          * untuk membuat elemen embedded seperti iframe, video, dll menjadi responsif.
          */
@@ -28,7 +28,7 @@
             height: 100%;           /* Mengisi tinggi yang tersedia */
             border-radius: 0.5rem;  /* Membuat sudut container menjadi rounded */
         }
-
+        
         .iframe-container iframe {
             position: absolute;      /* Melepaskan dari normal flow untuk mengisi container */
             top: 0;                  /* Posisikan dari atas container */
@@ -129,23 +129,12 @@
 
                 <div class="flex flex-col w-full lg:w-1/2">
                     <div class="relative">
-                        @if($workspace->description_images && count($workspace->description_images) > 0)
-                            <img
-                            src="{{ asset('storage/' . $workspace->description_images[0]) }}"
-                            alt="Main Image"
-                            class="w-full h-80 object-cover rounded-lg main-image"
-                            id="main-image"
-                            >
-                        @else
-                            <img
-                            src="{{asset('img/MainImg.png')}}"
-                            alt="Main Image"
-                            class="w-full h-80 object-cover rounded-lg main-image"
-                            id="main-image"
-                            >
-                        @endif
-
-                        @if($workspace->description_images && count($workspace->description_images) > 1)
+                        <img
+                        src="{{asset('img/MainImg.png')}}"
+                        alt="Main Image"
+                        class="w-full h-auto rounded-lg main-image"
+                        id="main-image"
+                        >
                         <button
                         class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 focus:outline-none carousel-prev"
                         aria-label="Previous Image"
@@ -162,58 +151,27 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                         </button>
-                        @endif
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 mt-4 w-full">
-                        @if($workspace->description_images && count($workspace->description_images) > 0)
-                            @php
-                                $totalImages = count($workspace->description_images);
-                                $displayedImages = array_slice($workspace->description_images, 0, 3);
-                            @endphp
-                            @foreach($displayedImages as $index => $image)
-                                @if($index === 2 && $totalImages > 3)
-                                    {{-- Last thumbnail with +N overlay --}}
-                                    <div class="relative cursor-pointer thumbnail transition-opacity hover:opacity-75" data-index="{{ $index }}">
-                                        <img
-                                            src="{{ asset('storage/' . $image) }}"
-                                            alt="Thumbnail {{ $index + 1 }}"
-                                            class="w-full h-24 object-cover rounded"
-                                        >
-                                        <div class="absolute inset-0 bg-gray-800 bg-opacity-20 rounded flex items-center justify-center">
-                                            <span class="text-white text-lg font-bold">+{{ $totalImages - 3 }}</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    {{-- Regular thumbnail --}}
-                                    <img
-                                        src="{{ asset('storage/' . $image) }}"
-                                        alt="Thumbnail {{ $index + 1 }}"
-                                        class="w-full h-24 object-cover rounded cursor-pointer thumbnail transition-opacity hover:opacity-75"
-                                        data-index="{{ $index }}"
-                                    >
-                                @endif
-                            @endforeach
-                        @else
-                            <img
-                                src="{{asset('img/image.png')}}"
-                                alt="Thumbnail"
-                                class="w-full h-24 object-cover rounded thumbnail"
-                                data-index="0"
-                            >
-                            <img
-                                src="{{asset('img/image3.png')}}"
-                                alt="Thumbnail"
-                                class="w-full h-24 object-cover rounded thumbnail"
-                                data-index="1"
-                            >
-                            <img
-                                src="{{asset('img/image2.png')}}"
-                                alt="Thumbnail"
-                                class="w-full h-24 object-cover rounded thumbnail"
-                                data-index="2"
-                            >
-                        @endif
+                        <img
+                            src="{{asset('img/image.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="1"
+                        >
+                        <img
+                            src="{{asset('img/image3.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="2"
+                        >
+                        <img
+                            src="{{asset('img/image2.png')}}"
+                            alt="Thumbnail"
+                            class="w-full h-auto rounded thumbnail"
+                            data-index="3"
+                        >
                     </div>
                 </div>
 
@@ -359,9 +317,9 @@
                         @foreach ($workspace->rooms as $room)
                         <div class="flex flex-col sm:flex-row border border-gray-200 bg-white gap-4 rounded-xl p-4 shadow-lg mt-4">
                             @if ($room->cover_image)
-                                <img src="{{ $room->getCoverImageUrl() }}" alt="Room" class="w-full sm:w-1/3 h-48 object-cover rounded">
+                                <img src="{{ $room->getCoverImageUrl() }}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
                             @else
-                                <img src="{{asset('img/contoh1.png')}}" alt="Room" class="w-full sm:w-1/3 h-48 object-cover rounded">
+                                <img src="{{asset('img/contoh1.png')}}" alt="Room" class="w-full sm:w-1/3 h-auto rounded">
                             @endif
                             <div class="flex flex-col">
                                 <h2 class="text-lg sm:text-xl font-semibold">{{ $room->name }}</h2>
@@ -400,9 +358,9 @@
                         <!-- Meja -->
                         <div class="flex flex-col sm:flex-row border bg-white border-gray-200 gap-4 rounded-xl p-4 shadow-lg mt-4">
                             @if ($table->cover_image)
-                                <img src="{{ $table->getCoverImageUrl() }}" alt="Table" class="w-full sm:w-1/3 h-48 object-cover rounded">
+                                <img src="{{ $table->getCoverImageUrl() }}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
                             @else
-                                <img src="{{asset('img/contoh1.png')}}" alt="Table" class="w-full sm:w-1/3 h-48 object-cover rounded">
+                                <img src="{{asset('img/contoh1.png')}}" alt="Table" class="w-full sm:w-1/3 h-auto rounded">
                             @endif
                             <div class="flex flex-col">
                                 <h2 class="text-lg sm:text-xl font-semibold">{{ $table->name }}</h2>
@@ -434,13 +392,13 @@
                 <div class="w-full lg:w-3/8" id="maps">
                     <p class="text-center text-2xl sm:text-3xl font-semibold">Temukan Lokasi Tempat di <span class="text-orange-500">Maps</span></p>
                     <div class="w-full h-auto border bg-white border-gray-200 shadow-xl rounded-xl mt-5 p-5">
-                        <!--
+                        <!-- 
                             Container untuk Google Maps dengan tinggi tetap (h-64 = 16rem)
                             Container ini memiliki tinggi tetap untuk memastikan proporsi peta yang konsisten
                         -->
                         <div class="w-full h-64" id="peta">
                             @if($workspace->iframe)
-                                <!--
+                                <!-- 
                                     iframe-container: Container khusus untuk membuat iframe responsif
                                     Struktur ini memungkinkan iframe menyesuaikan dengan container parent
                                     tanpa kehilangan proporsi dan tanpa mempengaruhi layout sekitarnya
@@ -502,7 +460,7 @@
                     @foreach ($recommendedWorkspaces as $recommended)
                     <div class="border border-gray-200 rounded-xl p-4 flex flex-col shadow-xl bg-white">
                         @if($recommended->cover_image)
-                            <img src="{{ $recommended->getCoverImageUrl() }}" alt="Recommendation" class="w-full h-48 object-cover rounded">
+                            <img src="{{ $recommended->getCoverImageUrl() }}" alt="Recommendation" class="w-full h-auto rounded">
                         @else
                             <div class="w-full h-48 bg-gray-200 rounded flex items-center justify-center">
                                 <p class="text-gray-500 text-sm">Tidak ada gambar</p>
@@ -536,89 +494,55 @@
     <div class="blur-circle top-350 -right-48"></div>
 </div>
 
-{{-- JavaScript untuk Carousel Description Images --}}
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         const mainImage = document.getElementById('main-image');
         const thumbnails = document.querySelectorAll('.thumbnail');
-        const nextButton = document.querySelector('.carousel-next');
-        const prevButton = document.querySelector('.carousel-prev');
 
-        // Create an array of all image sources from description_images
+        // Create an array of all image sources (including those not displayed)
         const allImages = [
-            @if($workspace->description_images && count($workspace->description_images) > 0)
-                @foreach ($workspace->description_images as $image)
-                    "{{ asset('storage/' . $image) }}",
-                @endforeach
-            @else
-                "{{ asset('img/MainImg.png') }}",
-                "{{ asset('img/image.png') }}",
-                "{{ asset('img/image3.png') }}",
-                "{{ asset('img/image2.png') }}"
-            @endif
+        @foreach ($images as $image)
+            "{{ asset('img/' . $image) }}",
+        @endforeach
         ];
 
+        const nextButton = document.querySelector('.carousel-next');
+        const prevButton = document.querySelector('.carousel-prev');
         let currentIndex = 0;
-
-        // Debug: Log available images
-        console.log('Available images:', allImages);
-        console.log('Total images:', allImages.length);
 
         // Function to update the main image
         function updateMainImage(index) {
-            if (allImages[index]) {
-                mainImage.src = allImages[index];
-                mainImage.alt = `Image ${index + 1}`;
-                currentIndex = index;
-
-                // Update thumbnail active state
-                thumbnails.forEach((thumb, i) => {
-                    if (i === index) {
-                        thumb.classList.add('ring-2', 'ring-blue-500', 'opacity-100');
-                    } else {
-                        thumb.classList.remove('ring-2', 'ring-blue-500');
-                        thumb.classList.add('opacity-75');
-                    }
-                });
-            }
+        mainImage.src = allImages[index];
+        mainImage.alt = `Image ${index + 1}`;
+        currentIndex = index;
         }
 
-        // Only add event listeners if we have multiple images
-        if (allImages.length > 1) {
-            // Next button click handler
-            if (nextButton) {
-                nextButton.addEventListener('click', () => {
-                    currentIndex = (currentIndex + 1) % allImages.length; // Cycle to next image
-                    updateMainImage(currentIndex);
-                });
-            }
+        // Next button click handler
+        nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % allImages.length; // Cycle to next image
+        updateMainImage(currentIndex);
+        });
 
-            // Previous button click handler
-            if (prevButton) {
-                prevButton.addEventListener('click', () => {
-                    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length; // Cycle to previous image
-                    updateMainImage(currentIndex);
-                });
-            }
+        // Previous button click handler
+        prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length; // Cycle to previous image
+        updateMainImage(currentIndex);
+        });
 
-            // Click on thumbnail to update main image
-            thumbnails.forEach((thumbnail) => {
-                thumbnail.addEventListener('click', () => {
-                    const index = parseInt(thumbnail.getAttribute('data-index'));
-                    updateMainImage(index);
-                });
-            });
-        }
-
-        // Set initial active thumbnail
-        updateMainImage(0);
+        // Click on thumbnail to update main image
+        thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            const index = parseInt(thumbnail.getAttribute('data-index'));
+            updateMainImage(index);
+        });
+        });
     });
-</script>
+</script> --}}
 
 <script>
     /**
      * Script untuk membuat iframe Google Maps menjadi responsif
-     *
+     * 
      * Script ini mendeteksi iframe yang ada dalam container dan menyesuaikan ukurannya
      * agar dapat mengisi ruang container secara penuh. Hal ini diperlukan karena
      * secara default, iframe Google Maps memiliki width dan height yang tetap (fixed)
@@ -626,25 +550,25 @@
      */
     document.addEventListener('DOMContentLoaded', function() {
         // Tunggu hingga DOM sepenuhnya dimuat sebelum memanipulasi elemen
-
+        
         // Cari container yang menampung iframe
         const iframeContainer = document.querySelector('.iframe-container');
-
+        
         if (iframeContainer) {
             // Dapatkan iframe yang ada di dalam container
             const iframe = iframeContainer.querySelector('iframe');
-
+            
             if (iframe) {
                 // Hapus atribut width dan height default dari iframe
                 // Ini penting karena atribut ini akan mengganti style CSS
                 iframe.removeAttribute('width');
                 iframe.removeAttribute('height');
-
+                
                 // Terapkan style lebar dan tinggi 100% secara langsung ke iframe
                 // Ini memastikan iframe akan mengisi container sepenuhnya
                 iframe.style.width = '100%';
                 iframe.style.height = '100%';
-
+                
                 // Catatan: CSS telah mengatur position: absolute untuk iframe
                 // sehingga iframe dapat mengisi area container dengan benar
             }
