@@ -26,7 +26,6 @@ class AdminWorkspaceController extends Controller
             'closing_time' => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'description_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'iframe' => 'nullable|string',
         ]);
 
         // Process facilities
@@ -42,7 +41,6 @@ class AdminWorkspaceController extends Controller
             'closing_time' => $request->closing_time,
             'phone' => $this->formatPhoneNumber($request->phone),
             'maps' => $request->maps,
-            'iframe' => $request->iframe,
             'email' => $request->email,
             'instagram' => $request->instagram,
             'tiktok' => $request->tiktok,
@@ -124,16 +122,7 @@ class AdminWorkspaceController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'opening_time' => 'required',
-            'closing_time' => 'required',
-            'email' => 'nullable|email',
-            'maps' => 'nullable|string',
-            'iframe' => 'nullable|string',
-            'instagram' => 'nullable|string',
-            'tiktok' => 'nullable|string',
-            'address' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            // Add other validations as needed
         ]);
         
         $requestData = $request->all();

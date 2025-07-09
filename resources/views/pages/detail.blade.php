@@ -11,33 +11,11 @@
     <script src="{{asset('js/detail.js')}}"></script>
 
     <style>
+
         body{
             scroll-behavior: smooth;
         }
 
-        /**
-         * CSS untuk membuat iframe responsif
-         * 
-         * Teknik ini menggunakan pendekatan "aspect ratio container" yang umum digunakan
-         * untuk membuat elemen embedded seperti iframe, video, dll menjadi responsif.
-         */
-        .iframe-container {
-            position: relative;     /* Diperlukan untuk pengaturan posisi absolute pada child */
-            overflow: hidden;       /* Mencegah konten yang melebihi container terlihat */
-            width: 100%;            /* Mengisi lebar parent sepenuhnya */
-            height: 100%;           /* Mengisi tinggi yang tersedia */
-            border-radius: 0.5rem;  /* Membuat sudut container menjadi rounded */
-        }
-        
-        .iframe-container iframe {
-            position: absolute;      /* Melepaskan dari normal flow untuk mengisi container */
-            top: 0;                  /* Posisikan dari atas container */
-            left: 0;                 /* Posisikan dari kiri container */
-            width: 100% !important;  /* Memaksa lebar 100% dan menimpa atribut width inline */
-            height: 100% !important; /* Memaksa tinggi 100% dan menimpa atribut height inline */
-            border-radius: 0.5rem;   /* Sudut rounded agar selaras dengan container */
-            border: 0;               /* Menghilangkan border default dari iframe */
-        }
     </style>
 
 </head>
@@ -392,26 +370,8 @@
                 <div class="w-full lg:w-3/8" id="maps">
                     <p class="text-center text-2xl sm:text-3xl font-semibold">Temukan Lokasi Tempat di <span class="text-orange-500">Maps</span></p>
                     <div class="w-full h-auto border bg-white border-gray-200 shadow-xl rounded-xl mt-5 p-5">
-                        <!-- 
-                            Container untuk Google Maps dengan tinggi tetap (h-64 = 16rem)
-                            Container ini memiliki tinggi tetap untuk memastikan proporsi peta yang konsisten
-                        -->
                         <div class="w-full h-64" id="peta">
-                            @if($workspace->iframe)
-                                <!-- 
-                                    iframe-container: Container khusus untuk membuat iframe responsif
-                                    Struktur ini memungkinkan iframe menyesuaikan dengan container parent
-                                    tanpa kehilangan proporsi dan tanpa mempengaruhi layout sekitarnya
-                                -->
-                                <div class="w-full h-full iframe-container">
-                                    {!! $workspace->iframe !!}
-                                </div>
-                            @else
-                                <!-- Tampilan fallback jika tidak ada iframe -->
-                                <div class="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
-                                    <p class="text-gray-500">Peta tidak tersedia</p>
-                                </div>
-                            @endif
+                            <iframe src="{{ $workspace->maps }}" width="100%" height="100%" style="border-radius:20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div class="flex flex-col items-start" id="fasilitas">
                             <h2 class="text-xl sm:text-2xl font-semibold mt-5">Fasilitas Lokasi</h2>
@@ -422,9 +382,7 @@
 
                             </ul>
 
-                            @if($workspace->maps)
-                                <a href="{{ $workspace->maps }}" target="_blank" class="w-full text-center text-sm sm:text-base text-white bg-[#363062] p-2 rounded-xl mt-5 transition ease-in-out hover:-translate-y-1 duration-300">Buka Maps</a>
-                            @endif
+                            <a href="{{ $workspace->maps }}" class="w-full text-center text-sm sm:text-base text-white bg-[#363062] p-2 rounded-xl mt-5 transition ease-in-out hover:-translate-y-1 duration-300">Buka Maps</a>
                         </div>
                     </div>
                     <h1 class="mt-10 text-2xl sm:text-3xl font-bold mb-3">Hubungi Sekarang</h1>
@@ -539,41 +497,5 @@
     });
 </script> --}}
 
-<script>
-    /**
-     * Script untuk membuat iframe Google Maps menjadi responsif
-     * 
-     * Script ini mendeteksi iframe yang ada dalam container dan menyesuaikan ukurannya
-     * agar dapat mengisi ruang container secara penuh. Hal ini diperlukan karena
-     * secara default, iframe Google Maps memiliki width dan height yang tetap (fixed)
-     * yang diberikan oleh Google saat kode embed dibuat.
-     */
-    document.addEventListener('DOMContentLoaded', function() {
-        // Tunggu hingga DOM sepenuhnya dimuat sebelum memanipulasi elemen
-        
-        // Cari container yang menampung iframe
-        const iframeContainer = document.querySelector('.iframe-container');
-        
-        if (iframeContainer) {
-            // Dapatkan iframe yang ada di dalam container
-            const iframe = iframeContainer.querySelector('iframe');
-            
-            if (iframe) {
-                // Hapus atribut width dan height default dari iframe
-                // Ini penting karena atribut ini akan mengganti style CSS
-                iframe.removeAttribute('width');
-                iframe.removeAttribute('height');
-                
-                // Terapkan style lebar dan tinggi 100% secara langsung ke iframe
-                // Ini memastikan iframe akan mengisi container sepenuhnya
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                
-                // Catatan: CSS telah mengatur position: absolute untuk iframe
-                // sehingga iframe dapat mengisi area container dengan benar
-            }
-        }
-    });
-</script>
 </body>
 </html>
