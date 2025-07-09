@@ -39,7 +39,7 @@ class AdminWorkspaceController extends Controller
             'address' => $request->address,
             'opening_time' => $request->opening_time,
             'closing_time' => $request->closing_time,
-            'phone' => $request->phone,
+            'phone' => $this->formatPhoneNumber($request->phone),
             'maps' => $request->maps,
             'email' => $request->email,
             'instagram' => $request->instagram,
@@ -125,8 +125,48 @@ class AdminWorkspaceController extends Controller
             // Add other validations as needed
         ]);
         
-        $workspace->update($request->all());
+        $requestData = $request->all();
+        if (isset($requestData['phone'])) {
+            $requestData['phone'] = $this->formatPhoneNumber($requestData['phone']);
+        }
+        
+        $workspace->update($requestData);
         
         return redirect()->back()->with('success', 'Workspace updated successfully');
+    }
+    
+    /**
+     * Format phone number to use country code.
+     * Converts leading 0 to Indonesia's country code 62
+     *
+     * @param string|null $phoneNumber
+     * @return string|null
+     */
+    private function formatPhoneNumber(?string $phoneNumber): ?string
+    {
+        if (empty($phoneNumber)) {
+            return $phoneNumber;
+        }
+        
+        // Remove any spaces, dashes, or parentheses
+        $phoneNumber = preg_replace('/[\\s\\-\\(\\)]/', '', $phoneNumber);
+        
+        // Remove leading '+' if it exists
+        if (substr($phoneNumber, 0, 1) === '+') {
+            $phoneNumber = substr($phoneNumber, 1);
+        }
+        
+        // If the phone number starts with 0, replace it with 62
+        if (substr($phoneNumber, 0, 1) === '0') {
+            return '62' . substr($phoneNumber, 1);
+        }
+        
+        // If it already starts with 62, return as is
+        if (substr($phoneNumber, 0, 2) === '62') {
+            return $phoneNumber;
+        }
+        
+        // Otherwise, return as is
+        return $phoneNumber;
     }
 }
