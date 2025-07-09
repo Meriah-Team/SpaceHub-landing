@@ -327,8 +327,19 @@
                                     <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Maks. {{$room->max_capacity}} Orang</div>
                                     <div class="bg-{{ $room->is_smoking ? 'green' : 'red' }}-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">{{ $room->is_smoking ? 'Smoking' : 'Non Smoking' }}</div>
                                 </div>
-                                <h2 class="text-orange-500 mt-2 font-semibold">Mulai Dari</h2>
-                                <h2 class="font-semibold text-base sm:text-lg">Rp. {{ number_format($room->starting_price, 0, ',', '.') }} / 2 jam</h2>
+                                <h2 class="text-orange-500 mt-2 font-semibold">
+                                    @if($room->book_type)
+                                        Mulai dari
+                                    @else
+                                        Mulai Dari
+                                    @endif
+                                </h2>
+                                <h2 class="font-semibold text-base sm:text-lg">
+                                    Rp. {{ number_format($room->starting_price, 0, ',', '.') }}
+                                    @if($room->book_type)
+                                        / jam
+                                    @endif
+                                </h2>
                             </div>
                         </div>
 
@@ -357,8 +368,19 @@
                                     <div class="bg-green-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Maks. {{ $table->max_capacity }} Orang</div>
                                     <div class="bg-{{ $table->is_smoking ? 'green' : 'red' }}-500 rounded-xl text-xs sm:text-sm text-white px-2 py-1">Outdoor</div>
                                 </div>
-                                <h2 class="text-orange-500 mt-2 font-semibold">Minimal Order</h2>
-                                <h2 class="font-semibold text-base sm:text-lg">Rp. {{ number_format($table->starting_price, 0, ',', '.') }} / 2 jam</h2>
+                                <h2 class="text-orange-500 mt-2 font-semibold">
+                                    @if($table->book_type)
+                                        Hourly
+                                    @else
+                                        Minimal Order
+                                    @endif
+                                </h2>
+                                <h2 class="font-semibold text-base sm:text-lg">
+                                    Rp. {{ number_format($table->starting_price, 0, ',', '.') }}
+                                    @if($table->book_type)
+                                        / jam
+                                    @endif
+                                </h2>
                             </div>
                         </div>
 
